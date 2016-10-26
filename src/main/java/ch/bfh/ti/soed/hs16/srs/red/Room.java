@@ -32,4 +32,8 @@ public class Room {
         public void removeReservation(Reservation res){
         reservations.remove(res);
     }
+
+    Object getName() {
+        return this.name;
+    }
 }

@@ -29,9 +29,10 @@ public class User {
   
   
   
-  public void makeReservation(Room room, TimeSlot timeslot, Date date){
+  public Reservation makeReservation(Room room, TimeSlot timeslot, Date date){
       Reservation res = new Reservation(this, room, timeslot, date);
       reservations.add(res);
+      return res;
       
   }
   public void cancelReservation(Reservation res){

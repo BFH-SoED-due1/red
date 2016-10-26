@@ -29,4 +29,10 @@ public class Reservation {
     public void cancelReservation(){
         room.removeReservation(this);
     }
+
+    public User getOwner() {
+        return owner;
+    }
+    
+    
 }
