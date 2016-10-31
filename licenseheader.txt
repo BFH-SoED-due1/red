@@ -1,8 +1,9 @@
 <#if licenseFirst??>
 ${licenseFirst}
 </#if>
-${licensePrefix}Here comes the text of your license
-${licensePrefix}Each line should be prefixed with ${licensePrefix}
+${licensePrefix}Copyright (c) 2016 Berner Fachhochschule, Switzerland.
+${licensePrefix}Project Smart Reservation System.
+${licensePrefix}Distributable under GPL license. See terms of license at gnu.org.
 <#if licenseLast??>
 ${licenseLast}
 </#if>

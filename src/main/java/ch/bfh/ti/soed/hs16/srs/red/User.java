@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (c) 2016 Berner Fachhochschule, Switzerland.
+ * Project Smart Reservation System.
+ * Distributable under GPL license. See terms of license at gnu.org.
  */
 package ch.bfh.ti.soed.hs16.srs.red;
 
@@ -25,15 +25,15 @@ public class User {
         this.id = id;
         this.role = role;
     }
-  
-  
-  
-  
+
+
+
+
   public Reservation makeReservation(Room room, TimeSlot timeslot, Date date){
       Reservation res = new Reservation(this, room, timeslot, date);
       reservations.add(res);
       return res;
-      
+
   }
   public void cancelReservation(Reservation res){
       res.cancelReservation();

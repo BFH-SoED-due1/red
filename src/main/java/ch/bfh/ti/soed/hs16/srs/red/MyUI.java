@@ -1,13 +1,9 @@
 /*
  * Copyright (c) 2016 Berner Fachhochschule, Switzerland.
- *
  * Project Smart Reservation System.
- *
  * Distributable under GPL license. See terms of license at gnu.org.
  */
 package ch.bfh.ti.soed.hs16.srs.red;
-
-import javax.servlet.annotation.WebServlet;
 
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
@@ -18,6 +14,7 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
+import javax.servlet.annotation.WebServlet;
 
 /**
  * This UI is the application entry point. A UI may either represent a browser window
