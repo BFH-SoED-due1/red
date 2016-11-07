@@ -25,7 +25,9 @@ public class User {
         this.id = id;
         this.role = role;
     }
-
+public String getName(){
+    return name;
+}
 
 
 
