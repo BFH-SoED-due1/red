@@ -8,14 +8,13 @@ package ch.bfh.ti.soed.hs16.srs.red;
 import java.sql.Time;
 
 /**
- *
  * @author Martin
  */
 class TimeSlot {
     private Time startTime;
     private Time endTime;
 
-    public TimeSlot(Time startTime,Time endTime){
+    public TimeSlot(Time startTime, Time endTime) {
         this.startTime = startTime;
         this.endTime = endTime;
     }
