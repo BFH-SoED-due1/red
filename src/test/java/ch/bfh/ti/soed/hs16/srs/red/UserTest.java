@@ -27,22 +27,22 @@ public class UserTest{
         User user = new User("Ralph",1,1);
         Room room1 = new Room("406","HG",30);
         Set<Reservation> reservations = new HashSet<>();
-        TimeSlot slot = new TimeSlot(new Time(14,30,0),new Time(16,0,0));
-        reservations.add(user.makeReservation(room1,slot, new Date(2016,10,20)));
+        TimeSlot slot = new TimeSlot(new Time(9364),new Time(14588));
+        reservations.add(user.makeReservation(room1,slot, new Date()));
         room1 = new Room("209","Nord",1297);
-        slot = new TimeSlot(new Time(14,30,0),new Time(16,0,0));
-        reservations.add(user.makeReservation(room1,slot, new Date(2016,10,20)));
+        slot = new TimeSlot(new Time(75863),new Time(75832));
+        reservations.add(user.makeReservation(room1,slot, new Date(12561996)));
         assertEquals( user.getReservations() , reservations);
+
     }
 
     @Test
-    public void testCanceldReservationsVanish(){
+    public void testCanceledReservationsVanish(){
         User user = new User("Ralph",1,1);
         Room room1 = new Room("406","HG",30);
-        Set<Reservation> reservations = new HashSet<>();
-        TimeSlot slot = new TimeSlot(new Time(14,30,0),new Time(16,0,0));
-        Reservation res = user.makeReservation(room1,slot, new Date(2016,10,20));
-        //reservations.add(res);
+        Set<Reservation> reservations;
+        TimeSlot slot = new TimeSlot(new Time(9364),new Time(14588));
+        Reservation res = user.makeReservation(room1,slot, new Date());
         user.cancelReservation(res);
         reservations = user.getReservations();
         assertFalse(reservations.contains(res));
