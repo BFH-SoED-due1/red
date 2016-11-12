@@ -9,7 +9,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- *
  * @author Martin
  */
 public class Room {
@@ -24,12 +23,12 @@ public class Room {
         this.size = size;
     }
 
-    public void addReservation(Reservation res){
+    public void addReservation(Reservation res) {
         reservations.add(res);
     }
 
 
-        public void removeReservation(Reservation res){
+    public void removeReservation(Reservation res) {
         reservations.remove(res);
     }
 

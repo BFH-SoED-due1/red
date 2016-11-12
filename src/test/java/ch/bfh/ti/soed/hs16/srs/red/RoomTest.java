@@ -5,18 +5,18 @@
  */
 package ch.bfh.ti.soed.hs16.srs.red;
 
-import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
 
 
 public class RoomTest {
-    
-   @Test 
+
+    @Test
     public void testReservationKnowsOwner() {
-        
-        Room room = new Room("room", "building", 12); 
+
+        Room room = new Room("room", "building", 12);
         assertEquals(room.getName(), "room");
-}
-    
+    }
+
 }
