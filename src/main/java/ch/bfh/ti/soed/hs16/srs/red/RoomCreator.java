@@ -19,17 +19,10 @@ import java.util.Set;
  */
 public class RoomCreator {
 
-
-
-
-
-
-
     public Room createRoom(String name, String building, int size){
         return new Room(name, building, size);
         //TODO add Room to Database
     }
-
 
     // Input has to be an *.csv file with 3 collumns, one room per collumn in order: name, building, size
     // Sanity Check before calling this class
@@ -41,17 +34,13 @@ public class RoomCreator {
             String[] room;
 
   try (BufferedReader br = new BufferedReader(new FileReader(filepath))){
-
-
           while((line = br.readLine()) != null){
-
                 room = line.split(splitter);
                 System.out.println(" "+ room.length);
                 rooms.add(createRoom(room[0], room[1], Integer.parseInt(room[2])));
-
           }
     } catch (Exception e) {
-        System.out.println("Couldn't load file");
+
     }
       return rooms;
     }
