@@ -5,18 +5,32 @@
  */
 package ch.bfh.ti.soed.hs16.srs.red;
 
-import java.sql.Time;
+import java.util.Date;
 
 /**
  * @author Martin
  */
 class TimeSlot {
-    private Time startTime;
-    private Time endTime;
+    private Date startTime;
+    private Date endTime;
 
-    public TimeSlot(Time startTime, Time endTime) {
-        this.startTime = startTime;
-        this.endTime = endTime;
+    public TimeSlot(Date startTime, Date endTime) {
+        if (startTime.before(endTime)){
+            this.startTime = startTime;
+            this.endTime = endTime;  
+            }
+        else{
+            this.startTime = endTime;
+            this.endTime = startTime;
+        }
+        
+    }
+    public Date getStart() {
+        return startTime;
+    }
+    
+    public Date getEnd() {
+        return endTime;
     }
 
 }

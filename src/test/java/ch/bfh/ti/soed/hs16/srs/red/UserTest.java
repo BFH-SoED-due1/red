@@ -25,8 +25,8 @@ public class UserTest {
         User user = new User("Ralph", 1, 1);
         Room room1 = new Room("406", "HG", 30);
         Set<Reservation> reservations;
-        TimeSlot slot = new TimeSlot(new Time(9364), new Time(14588));
-        Reservation res = user.makeReservation(room1, slot, new Date());
+        TimeSlot slot = new TimeSlot(new Date(9364), new Date(14588));
+        Reservation res = user.makeReservation(room1, slot);
         assertTrue(user.getReservations().contains(res));
     }
     @Test
@@ -34,11 +34,11 @@ public class UserTest {
         User user = new User("Ralph", 1, 1);
         Room room1 = new Room("406", "HG", 30);
         Set<Reservation> reservations = new HashSet<>();
-        TimeSlot slot = new TimeSlot(new Time(9364), new Time(14588));
-        reservations.add(user.makeReservation(room1, slot, new Date()));
+        TimeSlot slot = new TimeSlot(new Date(9364), new Date(14588));
+        reservations.add(user.makeReservation(room1, slot));
         room1 = new Room("209", "Nord", 1297);
-        slot = new TimeSlot(new Time(75863), new Time(75832));
-        reservations.add(user.makeReservation(room1, slot, new Date(12561996)));
+        slot = new TimeSlot(new Date(75863), new Date(75882));
+        reservations.add(user.makeReservation(room1, slot));
         assertEquals(user.getReservations(), reservations);
 
     }
@@ -48,8 +48,8 @@ public class UserTest {
         User user = new User("Ralph", 1, 1);
         Room room1 = new Room("406", "HG", 30);
         Set<Reservation> reservations;
-        TimeSlot slot = new TimeSlot(new Time(9364), new Time(14588));
-        Reservation res = user.makeReservation(room1, slot, new Date());
+        TimeSlot slot = new TimeSlot(new Date(9364), new Date(14588));
+        Reservation res = user.makeReservation(room1, slot);
         user.cancelReservation(res);
         reservations = user.getReservations();
         assertFalse(reservations.contains(res));
