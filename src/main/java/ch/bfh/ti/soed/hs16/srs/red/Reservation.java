@@ -17,7 +17,7 @@ public class Reservation {
     private TimeSlot timeslot;
 
 
-    public Reservation(User user, Room room, TimeSlot timeslot, Date date) {
+    public Reservation(User user, Room room, TimeSlot timeslot) {
         this.owner = user;
         this.room = room;
         this.timeslot = timeslot;

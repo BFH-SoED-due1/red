@@ -15,7 +15,7 @@ class TimeSlot {
     private Date endTime;
 
     public TimeSlot(Date startTime, Date endTime) {
-        if (startTime.compareTo(endTime) <0){
+        if (startTime.before(endTime)){
             this.startTime = startTime;
             this.endTime = endTime;  
             }
@@ -30,7 +30,7 @@ class TimeSlot {
     }
     
     public Date getEnd() {
-        return startTime;
+        return endTime;
     }
 
 }

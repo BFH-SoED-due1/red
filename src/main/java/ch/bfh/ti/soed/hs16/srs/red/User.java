@@ -24,19 +24,22 @@ public class User {
         this.id = id;
         this.role = role;
     }
-public String getName(){
-    return name;
-}
+    public String getName(){
+        return name;
+    }
 
-    public Reservation makeReservation(Room room, TimeSlot timeslot, Date date) {
-        Reservation res = new Reservation(this, room, timeslot, date);
-        reservations.add(res);
-        return res;
+    public Reservation makeReservation(Room room, TimeSlot timeslot) {
+        Reservation res = ReservationController.createReservation(timeslot, room, this);
+        if(res != null){
+            reservations.add(res);
+            return res;
+        }
+        return null;
 
     }
 
     public void cancelReservation(Reservation res) {
-        res.cancelReservation();
+        ReservationController.cancelReservation(res);
         this.reservations.remove(res);
     }
 

@@ -12,7 +12,7 @@ public class ReservationController {
     //TODO Implement Database
 
 
-    private List<Reservation> Reservations = new ArrayList<>();;
+    private static List<Reservation> Reservations = new ArrayList<>();;
 
 
     /**
@@ -20,14 +20,15 @@ public class ReservationController {
      * @param timeslot the timeslot of the reservation
      * @param room the room to reserve
      * @param user User creating reservation
-     * @return true if reservation successfull, false if room not available
+     * @return reservation if successful, null otherwise
      */
-    public boolean createReservation(TimeSlot timeslot, Room room, User user) {
+    public static Reservation createReservation(TimeSlot timeslot, Room room, User user) {
         if (available(room, timeslot)) {
-            Reservations.add(new Reservation(user, room, timeslot));
-            return true;
+            Reservation res = new Reservation(user, room, timeslot);
+            Reservations.add(res);
+            return res;
         }
-        return false;
+        return null;
     }
 
 
@@ -35,7 +36,7 @@ public class ReservationController {
      * Remove a reservation from the list
      * @param res the cancelled reservation
      */
-    public void cancelReservation(Reservation res) {
+    public static void cancelReservation(Reservation res) {
 
         
         for (Reservation reservation : Reservations) {
@@ -47,23 +48,59 @@ public class ReservationController {
         }
 
     }
+    /**
+     * Removes all reservations from the list
+     */
+    public static void ClearAllReservations() {
 
-    private boolean available(Room room, TimeSlot timeslot) {
+        
+        for (Reservation reservation : Reservations) {
+            reservation.cancelReservation();
+            Reservations.remove(Reservations.indexOf(reservation));
+        }
+
+    }
+    
+     /**
+     * returns a list of rooms which are open for specified timeslot
+     * @param t the timeslot to check for
+     * @param allRooms a list of all rooms. TODO: make roomcontroller static, get list from there
+     * @return list of rooms open at timeslot
+     */
+    public static List<Room> getOpenRooms(TimeSlot t, List<Room> allRooms)
+    {
+        List<Room> openRooms = new ArrayList<Room>();
+        for (Room r : allRooms) {
+            if (available(r, t)) {
+                openRooms.add(r);
+            }
+        }
+        return openRooms;
+    }
+    
+     /**
+     * checks if a timeslot fits into the reservations of a room
+     * @param room the room to check
+     * @param timeslot the timeslot to check for
+     * @return true if timeslot open, false otherwise
+     */
+    private static boolean available(Room room, TimeSlot timeslot) {
         for (Reservation reservation : Reservations) {
             if (reservation.getRoom().equals(room)) {
                 TimeSlot t = reservation.getTimeSlot();
-                if (timeslot.getStart().compareTo(t.getStart()) >=0 && timeslot.getStart().compareTo(t.getEnd()) <0) {
+                if (timeslot.getStart().after(t.getStart())&&timeslot.getStart().before(t.getEnd())) {
                     //the start of the needed timeslot is in between the start and end of another timeslot
                     return false;
                 }
-                if (timeslot.getEnd().compareTo(t.getStart()) >=0 && timeslot.getEnd().compareTo(t.getEnd()) <0) {
+                if (timeslot.getEnd().after(t.getStart())&&timeslot.getEnd().before(t.getEnd())) {
                     //the end of the needed timeslot is in between the start and end of another timeslot
                     return false;
                 }
             }
             
-        }
+        }  
         return true;
     }
+    
 
 }
