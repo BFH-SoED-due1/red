@@ -15,14 +15,12 @@ public class Reservation {
     private User owner;
     private Room room;
     private TimeSlot timeslot;
-    private Date date;
 
 
     public Reservation(User user, Room room, TimeSlot timeslot, Date date) {
         this.owner = user;
         this.room = room;
         this.timeslot = timeslot;
-        this.date = date;
         room.addReservation(this);
     }
 
@@ -33,6 +31,16 @@ public class Reservation {
     public User getOwner() {
         return owner;
     }
+    public Room getRoom() {
+        return room;
+    }
+    
+    
+    public TimeSlot getTimeSlot() {
+        return timeslot;
+    }
+    
+    
 
 
 }
