@@ -6,21 +6,26 @@
 package ch.bfh.ti.soed.hs16.srs.red;
 
 
-import org.junit.Test;
-
-import java.sql.Time;
+import ch.bfh.ti.soed.hs16.srs.red.data.Reservation;
+import ch.bfh.ti.soed.hs16.srs.red.data.Room;
+import ch.bfh.ti.soed.hs16.srs.red.data.TimeSlot;
+import ch.bfh.ti.soed.hs16.srs.red.jpa.MyRoom;
+import ch.bfh.ti.soed.hs16.srs.red.jpa.MyUser;
+import ch.bfh.ti.soed.hs16.srs.red.service.ReservationController;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Calendar;
 import java.util.List;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import org.junit.Test;
 
 
 /**
  * @author Martin
  */
-public class ReservationTest {
+public class MyReservationTest {
 
 
     /**
@@ -29,16 +34,16 @@ public class ReservationTest {
 
     @Test
     public void testMakeReservation() {
-        User user = new User("user", 1, 1);
-        Room room = new Room("room", "building", 12);
+        MyUser user = new MyUser("user", 1, 1);
+        MyRoom room = new MyRoom("room", "building", 12);
         user.makeReservation(room, new TimeSlot(new Date(1000*1000*60), new Date(2000*1000*60)));
         assertFalse(user.getReservations().isEmpty());
     }
 
     @Test
     public void testCancelReservation() {
-        User user = new User("user", 1, 1);
-        Room room = new Room("room", "building", 12);
+        MyUser user = new MyUser("user", 1, 1);
+        MyRoom room = new MyRoom("room", "building", 12);
         Reservation reservation = user.makeReservation(room, new TimeSlot(new Date(1000*1000*60), new Date(2000*1000*60)));
         user.cancelReservation(reservation);
         assertTrue(user.getReservations().isEmpty());
@@ -46,28 +51,28 @@ public class ReservationTest {
 
     @Test
     public void testReservationKnowsOwner() {
-        User user = new User("user", 1, 1);
-        Room room = new Room("room", "building", 12);
+        MyUser user = new MyUser("user", 1, 1);
+        MyRoom room = new MyRoom("room", "building", 12);
         Reservation reservation = user.makeReservation(room, new TimeSlot(new Date(1000*1000*60), new Date(2000*1000*60)));
         assertEquals(reservation.getOwner(), user);
     }
-    
-    
+
+
     @Test
     public void testReservationConflict() {
-        User user = new User("user", 1, 1);
-        Room room = new Room("room", "building", 12);
+        MyUser user = new MyUser("user", 1, 1);
+        MyRoom room = new MyRoom("room", "building", 12);
         Reservation reservation1 = user.makeReservation(room, new TimeSlot(new Date(1000*60*60*24*10), new Date(1000*60*60*24*15)));
         Reservation reservation2 = user.makeReservation(room, new TimeSlot(new Date(1000*60*60*24*12), new Date(1000*60*60*24*18)));
         assertNull(reservation2);
     }
-    
+
     @Test
     public void testReservationRoomList() {
-        User user = new User("user", 1, 1);
-        Room room1 = new Room("room1", "building", 12);
-        Room room2 = new Room("room2", "building", 12);
-        Room room3 = new Room("room3", "building", 12);
+        MyUser user = new MyUser("user", 1, 1);
+        MyRoom room1 = new MyRoom("room1", "building", 12);
+        MyRoom room2 = new MyRoom("room2", "building", 12);
+        MyRoom room3 = new MyRoom("room3", "building", 12);
         List<Room> roomList = new ArrayList<Room>();
         roomList.add(room1);
         roomList.add(room2);

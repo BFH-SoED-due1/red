@@ -1,8 +1,12 @@
-package ch.bfh.ti.soed.hs16.srs.red;
+package ch.bfh.ti.soed.hs16.srs.red.service;
 
+import ch.bfh.ti.soed.hs16.srs.red.data.Reservation;
+import ch.bfh.ti.soed.hs16.srs.red.data.Room;
+import ch.bfh.ti.soed.hs16.srs.red.data.TimeSlot;
+import ch.bfh.ti.soed.hs16.srs.red.data.User;
+import ch.bfh.ti.soed.hs16.srs.red.jpa.MyReservation;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Date;
 
 /**
  * @author Marvin
@@ -24,7 +28,7 @@ public class ReservationController {
      */
     public static Reservation createReservation(TimeSlot timeslot, Room room, User user) {
         if (available(room, timeslot)) {
-            Reservation res = new Reservation(user, room, timeslot);
+            Reservation res = new MyReservation(user, room, timeslot);
             Reservations.add(res);
             return res;
         }
@@ -38,7 +42,7 @@ public class ReservationController {
      */
     public static void cancelReservation(Reservation res) {
 
-        
+
         for (Reservation reservation : Reservations) {
             if (reservation.equals(res)) {
                 res.cancelReservation();
@@ -53,14 +57,14 @@ public class ReservationController {
      */
     public static void ClearAllReservations() {
 
-        
+
         for (Reservation reservation : Reservations) {
             reservation.cancelReservation();
             Reservations.remove(Reservations.indexOf(reservation));
         }
 
     }
-    
+
      /**
      * returns a list of rooms which are open for specified timeslot
      * @param t the timeslot to check for
@@ -77,7 +81,7 @@ public class ReservationController {
         }
         return openRooms;
     }
-    
+
      /**
      * checks if a timeslot fits into the reservations of a room
      * @param room the room to check
@@ -97,10 +101,10 @@ public class ReservationController {
                     return false;
                 }
             }
-            
-        }  
+
+        }
         return true;
     }
-    
+
 
 }

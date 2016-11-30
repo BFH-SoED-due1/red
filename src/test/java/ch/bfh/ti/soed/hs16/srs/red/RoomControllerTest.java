@@ -5,15 +5,13 @@
  */
 package ch.bfh.ti.soed.hs16.srs.red;
 
-import org.junit.Test;
-
-import java.sql.Time;
+import ch.bfh.ti.soed.hs16.srs.red.data.Room;
+import ch.bfh.ti.soed.hs16.srs.red.jpa.MyRoom;
+import ch.bfh.ti.soed.hs16.srs.red.service.RoomController;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import org.junit.Test;
 
 /**
  * Created by scarface on 10.11.2016.
@@ -32,28 +30,28 @@ public class RoomControllerTest {
 
         //Creates 10 rooms and add it to List
         for (int i = 1; i <= 10; i++) {
-            roomOverviewTest.add(new Room("room" + i, "building" + i, i));
+            roomOverviewTest.add(new MyRoom("room" + i, "building" + i, i));
         }
 
         RoomController roomController = new RoomController();
         roomController.setRoomOverview(roomOverviewTest);
 
-        Room r6 = new Room("room6", "building6", 6);
+        MyRoom r6 = new MyRoom("room6", "building6", 6);
         roomController.removeRoom(r6);
 
         List<Room> room = roomController.getRooms();
 
         // Creates second List without deleted room
-        List<Room> roomWithoutRoom6 = new ArrayList<>();
-        roomWithoutRoom6.add(new Room("room1", "building1", 1));
-        roomWithoutRoom6.add(new Room("room2", "building2", 2));
-        roomWithoutRoom6.add(new Room("room3", "building3", 3));
-        roomWithoutRoom6.add(new Room("room4", "building4", 4));
-        roomWithoutRoom6.add(new Room("room5", "building5", 5));
-        roomWithoutRoom6.add(new Room("room7", "building7", 7));
-        roomWithoutRoom6.add(new Room("room8", "building8", 8));
-        roomWithoutRoom6.add(new Room("room9", "building9", 9));
-        roomWithoutRoom6.add(new Room("room10", "building10", 10));
+        List<MyRoom> roomWithoutRoom6 = new ArrayList<>();
+        roomWithoutRoom6.add(new MyRoom("room1", "building1", 1));
+        roomWithoutRoom6.add(new MyRoom("room2", "building2", 2));
+        roomWithoutRoom6.add(new MyRoom("room3", "building3", 3));
+        roomWithoutRoom6.add(new MyRoom("room4", "building4", 4));
+        roomWithoutRoom6.add(new MyRoom("room5", "building5", 5));
+        roomWithoutRoom6.add(new MyRoom("room7", "building7", 7));
+        roomWithoutRoom6.add(new MyRoom("room8", "building8", 8));
+        roomWithoutRoom6.add(new MyRoom("room9", "building9", 9));
+        roomWithoutRoom6.add(new MyRoom("room10", "building10", 10));
 
         assertEquals(9, room.size());
         assertEquals(9, roomWithoutRoom6.size());
@@ -71,17 +69,17 @@ public class RoomControllerTest {
 
         //Creates 10 rooms and add it to List
         for (int i = 1; i <= 10; i++) {
-            roomOverviewTest.add(new Room("room" + i, "building" + i, i));
+            roomOverviewTest.add(new MyRoom("room" + i, "building" + i, i));
         }
 
         RoomController roomController = new RoomController();
         roomController.setRoomOverview(roomOverviewTest);
 
-        Room r6 = new Room("TestRoom", "TestBuilding", 45);
+        MyRoom r6 = new MyRoom("TestRoom", "TestBuilding", 45);
 
         RoomController roomController1 = new RoomController();
         roomController1.setRoomOverview(roomOverviewTest);
-        Room r7 = null;
+        MyRoom r7 = null;
 
         roomController.removeRoom(r6);
         roomController1.removeRoom(r7);
@@ -102,13 +100,13 @@ public class RoomControllerTest {
 
         //Creates 10 rooms and add it to List
         for (int i = 1; i <= 10; i++) {
-            roomOverviewTest.add(new Room("room" + i, "building" + i, i));
+            roomOverviewTest.add(new MyRoom("room" + i, "building" + i, i));
         }
 
         RoomController roomController = new RoomController();
         roomController.setRoomOverview(roomOverviewTest);
 
-        Room r6 = new Room("newRoom", "newBuilding", 34);
+        MyRoom r6 = new MyRoom("newRoom", "newBuilding", 34);
 
         roomController.addRoom(r6);
         List<Room> roomList = roomController.getRooms();
@@ -124,13 +122,13 @@ public class RoomControllerTest {
 
         //Creates 10 rooms and add it to List
         for (int i = 1; i <= 10; i++) {
-            roomOverviewTest.add(new Room("room" + i, "building" + i, i));
+            roomOverviewTest.add(new MyRoom("room" + i, "building" + i, i));
         }
 
         RoomController roomController = new RoomController();
         roomController.setRoomOverview(roomOverviewTest);
 
-        Room r6 = new Room("room6", "building6", 6);
+        MyRoom r6 = new MyRoom("room6", "building6", 6);
 
         roomController.addRoom(r6);
         List<Room> roomList = roomController.getRooms();
@@ -147,7 +145,7 @@ public class RoomControllerTest {
     public void testAddRoomWithListNull() {
 
         RoomController roomController = new RoomController();
-        Room r6 = new Room("room6", "building6", 6);
+        MyRoom r6 = new MyRoom("room6", "building6", 6);
         roomController.addRoom(r6);
 
         assertEquals(1, roomController.getRooms().size());
@@ -161,7 +159,7 @@ public class RoomControllerTest {
     public void testAddRoomWithNullRoom() {
 
         RoomController roomController = new RoomController();
-        Room r6 = null;
+        MyRoom r6 = null;
         roomController.addRoom(r6);
 
         assertEquals(0, roomController.getRooms().size());

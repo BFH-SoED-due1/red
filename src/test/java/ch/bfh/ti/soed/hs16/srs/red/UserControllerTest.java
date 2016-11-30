@@ -5,6 +5,8 @@
  */
 package ch.bfh.ti.soed.hs16.srs.red;
 
+import ch.bfh.ti.soed.hs16.srs.red.service.UserController;
+import ch.bfh.ti.soed.hs16.srs.red.jpa.MyUser;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -24,7 +26,7 @@ public class UserControllerTest {
     public void testLoginExistingUser() {
         String username="user1";
         String password="hunter2";
-        User u;
+        MyUser u;
         UserController uc = new UserController();
          Map<String, String> dbLogin = new HashMap<>();
          dbLogin.put(username, password);
@@ -49,7 +51,7 @@ public class UserControllerTest {
     public void testLoginNonExistingUser() throws Exception {
         String username="user1";
         String password="hunter2";
-        User u;
+        MyUser u;
         UserController uc = new UserController();
          Map<String, String> dbLogin = new HashMap<>();
          dbLogin.put(username, password);
@@ -73,7 +75,7 @@ public class UserControllerTest {
     public void testLoginWrongPassword() throws Exception {
         String username="user1";
         String password="hunter2";
-        User u;
+        MyUser u;
         UserController uc = new UserController();
          Map<String, String> dbLogin = new HashMap<>();
          dbLogin.put(username, password);

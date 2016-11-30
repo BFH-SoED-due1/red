@@ -3,8 +3,9 @@
  * Project Smart Reservation System.
  * Distributable under GPL license. See terms of license at gnu.org.
  */
-package ch.bfh.ti.soed.hs16.srs.red;
+package ch.bfh.ti.soed.hs16.srs.red.service;
 
+import ch.bfh.ti.soed.hs16.srs.red.jpa.MyRoom;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -19,15 +20,15 @@ import java.util.Set;
  */
 public class RoomCreator {
 
-    public Room createRoom(String name, String building, int size){
-        return new Room(name, building, size);
+    public MyRoom createRoom(String name, String building, int size){
+        return new MyRoom(name, building, size);
         //TODO add Room to Database
     }
 
     // Input has to be an *.csv file with 3 collumns, one room per collumn in order: name, building, size
     // Sanity Check before calling this class
-    public Set<Room> createRoomsFromCSV(String filepath) throws FileNotFoundException, IOException{
-        Set<Room> rooms = new HashSet();
+    public Set<MyRoom> createRoomsFromCSV(String filepath) throws FileNotFoundException, IOException{
+        Set<MyRoom> rooms = new HashSet();
             System.out.println("Called Class");
             String line;
             String splitter = ";";
