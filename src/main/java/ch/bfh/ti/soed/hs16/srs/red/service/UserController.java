@@ -5,7 +5,9 @@
  */
 package ch.bfh.ti.soed.hs16.srs.red.service;
 
+import ch.bfh.ti.soed.hs16.srs.red.data.DataAccess;
 import ch.bfh.ti.soed.hs16.srs.red.jpa.MyUser;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,7 +40,8 @@ public void loadDatabase(Map login, Map id, Map role){
 
         public MyUser logIn(String name, String passWord) throws Exception{  // Receives the entered Username and a has of the password from the UI, checks if user is valid and creates user object.
             MyUser u;
-            if(dbLogin.get(name)==passWord) {
+            DataAccess dataAccess = DataAccess.getInstance();
+            if(dataAccess.findAllUsers().get()==passWord) {      //ToDo
                 u = new MyUser(name, dbID.get(name), dbRole.get(name));
             }else{
                 Exception e = new Exception();

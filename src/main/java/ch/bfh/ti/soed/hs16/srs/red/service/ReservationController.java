@@ -1,10 +1,7 @@
 package ch.bfh.ti.soed.hs16.srs.red.service;
 
-import ch.bfh.ti.soed.hs16.srs.red.data.Reservation;
-import ch.bfh.ti.soed.hs16.srs.red.data.Room;
-import ch.bfh.ti.soed.hs16.srs.red.data.TimeSlot;
-import ch.bfh.ti.soed.hs16.srs.red.data.User;
-import ch.bfh.ti.soed.hs16.srs.red.jpa.MyReservation;
+import ch.bfh.ti.soed.hs16.srs.red.data.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +13,8 @@ public class ReservationController {
     //TODO Implement Database
 
 
-    private static List<Reservation> Reservations = new ArrayList<>();;
+    //private static List<Reservation> Reservations = new ArrayList<>();
+
 
 
     /**
@@ -27,9 +25,11 @@ public class ReservationController {
      * @return reservation if successful, null otherwise
      */
     public static Reservation createReservation(TimeSlot timeslot, Room room, User user) {
+        DataAccess dataAccess = DataAccess.getInstance();
+        List<Reservation> Reservations = dataAccess.findAllReservations();
         if (available(room, timeslot)) {
-            Reservation res = new MyReservation(user, room, timeslot);
-            Reservations.add(res);
+            Reservation res = dataAccess.makeReservation(user, room, timeslot);
+            dataAccess.findAllReservations().add(res);
             return res;
         }
         return null;
@@ -41,7 +41,8 @@ public class ReservationController {
      * @param res the cancelled reservation
      */
     public static void cancelReservation(Reservation res) {
-
+        DataAccess dataAccess = DataAccess.getInstance();
+        List<Reservation> Reservations = dataAccess.findAllReservations(); //ToDO don't bullshit
 
         for (Reservation reservation : Reservations) {
             if (reservation.equals(res)) {
@@ -56,7 +57,8 @@ public class ReservationController {
      * Removes all reservations from the list
      */
     public static void ClearAllReservations() {
-
+        DataAccess dataAccess = DataAccess.getInstance();
+        List<Reservation> Reservations = dataAccess.findAllReservations(); //ToDo don't bullshit
 
         for (Reservation reservation : Reservations) {
             reservation.cancelReservation();
@@ -89,6 +91,8 @@ public class ReservationController {
      * @return true if timeslot open, false otherwise
      */
     private static boolean available(Room room, TimeSlot timeslot) {
+        DataAccess dataAccess = DataAccess.getInstance();
+        List<Reservation> Reservations = dataAccess.findAllReservations();
         for (Reservation reservation : Reservations) {
             if (reservation.getRoom().equals(room)) {
                 TimeSlot t = reservation.getTimeSlot();

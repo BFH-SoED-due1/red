@@ -51,4 +51,6 @@ public abstract class DataAccess { // acts as a singleton
 	// Methods for reservations
 	///////////////////////////
 	public abstract Reservation makeReservation(User user, Room room, TimeSlot timeslot);
+
+	public abstract List<Reservation> findAllReservations();
 }
