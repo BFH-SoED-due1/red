@@ -10,6 +10,7 @@ import ch.bfh.ti.soed.hs16.srs.red.data.Room;
 import ch.bfh.ti.soed.hs16.srs.red.data.TimeSlot;
 import ch.bfh.ti.soed.hs16.srs.red.data.User;
 import ch.bfh.ti.soed.hs16.srs.red.service.ReservationController;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,13 +29,14 @@ public class MyUser implements User {
         this.id = id;
         this.role = role;
     }
-    public String getName(){
+
+    public String getName() {
         return name;
     }
 
     public Reservation makeReservation(Room room, TimeSlot timeslot) {
         Reservation res = ReservationController.createReservation(timeslot, room, this);
-        if(res != null){
+        if (res != null) {
             reservations.add(res);
             return res;
         }

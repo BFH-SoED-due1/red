@@ -10,8 +10,10 @@ package ch.bfh.ti.soed.hs16.srs.red.data;
  * @author Martin
  */
 public interface User {
-    
-    public String getName();
-    public Reservation makeReservation(Room room, TimeSlot timeslot);
-    public void cancelReservation(Reservation res);
+
+    String getName();
+
+    Reservation makeReservation(Room room, TimeSlot timeslot);
+
+    void cancelReservation(Reservation res);
 }

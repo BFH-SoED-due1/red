@@ -8,17 +8,13 @@ package ch.bfh.ti.soed.hs16.srs.red.service;
 import ch.bfh.ti.soed.hs16.srs.red.data.DataAccess;
 import ch.bfh.ti.soed.hs16.srs.red.data.Room;
 
+import java.util.List;
 
 
 /**
  * @author tambur
  */
 public class RoomController {
-
-    //TODO Implement Database
-
-
-
 
 
     /**
@@ -29,11 +25,11 @@ public class RoomController {
      */
     public int addRoom(Room room) {
         DataAccess dataAccess = DataAccess.getInstance();
-        if (dataAccess.findAllRooms().contains(room)||room == null){
+        if (dataAccess.findAllRooms().contains(room) || room == null) {
             return -1;//nothing happens return -1 => room already exist or null
         }
 
-        dataAccess.findAllRooms().add(room);//return 1 => success
+        dataAccess.makeRoom(room.getName(), room.getBuilding(), room.getSize());//return 1 => success
         return 1;
 
         /*if (roomOverview == null) {
@@ -62,11 +58,22 @@ public class RoomController {
         DataAccess dataAccess = DataAccess.getInstance();
 
         if (room != null) {
-            dataAccess.findAllRooms().remove(room);
-
+            dataAccess.removeRoom(room);
 
         }
 
     }
 
+    public List<Room> getAllRooms() {
+        DataAccess dataAccess = DataAccess.getInstance();
+        return dataAccess.findAllRooms();
+    }
+
+    public void clearAllRooms() {
+        DataAccess dataAccess = DataAccess.getInstance();
+        List<Room> rooms = dataAccess.findAllRooms();
+        for (Room room : rooms) {
+            removeRoom(room);
+        }
+    }
 }

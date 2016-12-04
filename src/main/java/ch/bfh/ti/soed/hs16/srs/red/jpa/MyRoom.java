@@ -7,13 +7,14 @@ package ch.bfh.ti.soed.hs16.srs.red.jpa;
 
 import ch.bfh.ti.soed.hs16.srs.red.data.Reservation;
 import ch.bfh.ti.soed.hs16.srs.red.data.Room;
+
 import java.util.HashSet;
 import java.util.Set;
 
 /**
  * @author Martin
  */
-public class MyRoom implements Room{
+public class MyRoom implements Room {
     private String name;
     private String building;
     private int size;
@@ -39,5 +40,15 @@ public class MyRoom implements Room{
     @Override
     public String getName() {
         return this.name;
+    }
+
+    @Override
+    public String getBuilding() {
+        return this.building;
+    }
+
+    @Override
+    public int getSize() {
+        return 0;
     }
 }

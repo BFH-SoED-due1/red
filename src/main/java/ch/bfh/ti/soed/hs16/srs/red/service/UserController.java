@@ -6,48 +6,64 @@
 package ch.bfh.ti.soed.hs16.srs.red.service;
 
 import ch.bfh.ti.soed.hs16.srs.red.data.DataAccess;
-import ch.bfh.ti.soed.hs16.srs.red.jpa.MyUser;
+import ch.bfh.ti.soed.hs16.srs.red.data.User;
 
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
- *
  * @author Martin
  */
 
 
-
 public class UserController {
+    private Map<String, String> pws;//sould be in DB before Deploy
 
+    public UserController(Map<String, String> pws) {
+        this.pws = pws;
+    }
 
-//TODO Implement Database
-
-// These only exist until a proper Database has been implemented */
-private Map<String, String> dbLogin = new HashMap<>();
-private Map<String, Integer> dbID = new HashMap<>();
-private Map<String, Integer> dbRole = new HashMap<>();
-
-public void loadDatabase(Map login, Map id, Map role){
-    this.dbLogin=login;
-    this.dbID=id;
-    this.dbRole=role;
-}
-
-
-// End of Pre DB implementation, Delete before deployment
-
-
-        public MyUser logIn(String name, String passWord) throws Exception{  // Receives the entered Username and a has of the password from the UI, checks if user is valid and creates user object.
-            MyUser u;
-            DataAccess dataAccess = DataAccess.getInstance();
-            if(dataAccess.findAllUsers().get()==passWord) {      //ToDo
+    public User logIn(String name, String passWord) throws Exception {  // Receives the entered Username and a has of the password from the UI, checks if user is valid and creates user object.
+        //MyUser u;
+        DataAccess dataAccess = DataAccess.getInstance();
+        List<User> user = dataAccess.findAllUsers();
+        for (User u : user) {
+            if (u.getName().equals(name) && pws.get(name).equals(passWord)) {
+                return u;
+            }
+        }
+        Exception e = new Exception();
+        throw e;
+           /* if(dataAccess.findAllUsers().get()==passWord) {
                 u = new MyUser(name, dbID.get(name), dbRole.get(name));
             }else{
                 Exception e = new Exception();
                 throw e;
             }
 
-            return u;
+            return u;*/
     }
+
+    public int removeUser(User user) {
+        DataAccess dataAccess = DataAccess.getInstance();
+        if (dataAccess.findAllUsers().contains(user) && user != null) {
+            dataAccess.removeUser(user);
+            return 1;
+        }
+        return -1;
+    }
+
+    public void makeUser(String name, int id, int role) {
+        DataAccess dataAccess = DataAccess.getInstance();
+
+        dataAccess.makeUser(name, id, role);
+
+    }
+
+    public List<User> getAllUser() {
+        DataAccess dataAccess = DataAccess.getInstance();
+        return dataAccess.findAllUsers();
+    }
+
+
 }

@@ -15,16 +15,16 @@ public class TimeSlot {
     private Date endTime;
 
     public TimeSlot(Date startTime, Date endTime) {
-        if (startTime.before(endTime)){
+        if (startTime.before(endTime)) {
             this.startTime = startTime;
             this.endTime = endTime;
-            }
-        else{
+        } else {
             this.startTime = endTime;
             this.endTime = startTime;
         }
 
     }
+
     public Date getStart() {
         return startTime;
     }

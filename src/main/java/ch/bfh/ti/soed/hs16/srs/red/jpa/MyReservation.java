@@ -36,6 +36,7 @@ public class MyReservation implements Reservation {
     public User getOwner() {
         return owner;
     }
+
     @Override
     public Room getRoom() {
         return room;
@@ -46,8 +47,6 @@ public class MyReservation implements Reservation {
     public TimeSlot getTimeSlot() {
         return timeslot;
     }
-
-
 
 
 }

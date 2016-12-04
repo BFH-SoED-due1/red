@@ -11,8 +11,11 @@ package ch.bfh.ti.soed.hs16.srs.red.data;
  */
 public interface Reservation {
 
-    public void cancelReservation();
-    public User getOwner();
-    public Room getRoom();
-    public TimeSlot getTimeSlot();
+    void cancelReservation();
+
+    User getOwner();
+
+    Room getRoom();
+
+    TimeSlot getTimeSlot();
 }

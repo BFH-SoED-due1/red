@@ -5,14 +5,18 @@
  */
 package ch.bfh.ti.soed.hs16.srs.red;
 
-import ch.bfh.ti.soed.hs16.srs.red.service.UserController;
+import ch.bfh.ti.soed.hs16.srs.red.data.User;
 import ch.bfh.ti.soed.hs16.srs.red.jpa.MyUser;
+import ch.bfh.ti.soed.hs16.srs.red.service.UserController;
+import org.junit.Test;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import static org.junit.Assert.assertEquals;
-import org.junit.Test;
+import static org.junit.Assert.assertTrue;
 
 /**
  *
@@ -26,16 +30,11 @@ public class UserControllerTest {
     public void testLoginExistingUser() {
         String username="user1";
         String password="hunter2";
-        MyUser u;
-        UserController uc = new UserController();
+        User u;
+
          Map<String, String> dbLogin = new HashMap<>();
          dbLogin.put(username, password);
-         Map<String, Integer> dbID = new HashMap<>();
-         dbID.put(username, 1);
-         Map<String, Integer> dbRole = new HashMap<>();
-         dbRole.put(username, 0);
-
-         uc.loadDatabase(dbLogin, dbID, dbRole);
+        UserController uc = new UserController(dbLogin);
         try {
             u = uc.logIn(username, password);
             assertEquals(u.getName(), username);
@@ -49,18 +48,13 @@ public class UserControllerTest {
 
         @Test(expected = Exception.class)
     public void testLoginNonExistingUser() throws Exception {
-        String username="user1";
-        String password="hunter2";
-        MyUser u;
-        UserController uc = new UserController();
-         Map<String, String> dbLogin = new HashMap<>();
-         dbLogin.put(username, password);
-         Map<String, Integer> dbID = new HashMap<>();
-         dbID.put(username, 1);
-         Map<String, Integer> dbRole = new HashMap<>();
-         dbRole.put(username, 0);
+            String username="user1";
+            String password="hunter2";
+            User u;
 
-         uc.loadDatabase(dbLogin, dbID, dbRole);
+            Map<String, String> dbLogin = new HashMap<>();
+            dbLogin.put(username, password);
+            UserController uc = new UserController(dbLogin);
 
             u = uc.logIn("notuser", password);
 
@@ -73,22 +67,35 @@ public class UserControllerTest {
 
 @Test(expected = Exception.class)
     public void testLoginWrongPassword() throws Exception {
-        String username="user1";
-        String password="hunter2";
-        MyUser u;
-        UserController uc = new UserController();
-         Map<String, String> dbLogin = new HashMap<>();
-         dbLogin.put(username, password);
-         Map<String, Integer> dbID = new HashMap<>();
-         dbID.put(username, 1);
-         Map<String, Integer> dbRole = new HashMap<>();
-         dbRole.put(username, 0);
+    String username="user1";
+    String password="hunter2";
+    User u;
 
-         uc.loadDatabase(dbLogin, dbID, dbRole);
+    Map<String, String> dbLogin = new HashMap<>();
+    dbLogin.put(username, password);
+    UserController uc = new UserController(dbLogin);
 
             u = uc.logIn(username, "123test");
 
             System.out.println("Incorrect Username or Password");
+        }
+
+        @Test
+    public void testMakeUser(){
+        UserController userController = new UserController(null);
+        userController.makeUser("Franz",2,3);
+        MyUser franz = new MyUser("Franz",2,3);
+        assertTrue(userController.getAllUser().contains(franz));
+
+        }
+
+        @Test
+    public void testRemoveUser(){
+            UserController userController = new UserController(null);
+            userController.makeUser("Franz",2,3);
+            MyUser franz = new MyUser("Franz",2,3);
+            userController.removeUser(franz);
+            assertTrue(!userController.getAllUser().contains(franz));
         }
 
 

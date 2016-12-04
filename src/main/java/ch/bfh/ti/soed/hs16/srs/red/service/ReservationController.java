@@ -10,26 +10,20 @@ import java.util.List;
  */
 public class ReservationController {
 
-    //TODO Implement Database
-
-
-    //private static List<Reservation> Reservations = new ArrayList<>();
-
-
 
     /**
      * Generates a Reservation for a Room if timeslot is available
+     *
      * @param timeslot the timeslot of the reservation
-     * @param room the room to reserve
-     * @param user User creating reservation
+     * @param room     the room to reserve
+     * @param user     User creating reservation
      * @return reservation if successful, null otherwise
      */
     public static Reservation createReservation(TimeSlot timeslot, Room room, User user) {
         DataAccess dataAccess = DataAccess.getInstance();
-        List<Reservation> Reservations = dataAccess.findAllReservations();
+
         if (available(room, timeslot)) {
             Reservation res = dataAccess.makeReservation(user, room, timeslot);
-            dataAccess.findAllReservations().add(res);
             return res;
         }
         return null;
@@ -38,43 +32,47 @@ public class ReservationController {
 
     /**
      * Remove a reservation from the list
+     *
      * @param res the cancelled reservation
      */
     public static void cancelReservation(Reservation res) {
         DataAccess dataAccess = DataAccess.getInstance();
-        List<Reservation> Reservations = dataAccess.findAllReservations(); //ToDO don't bullshit
+        List<Reservation> Reservations = dataAccess.findAllReservations();
 
         for (Reservation reservation : Reservations) {
             if (reservation.equals(res)) {
                 res.cancelReservation();
-                Reservations.remove(Reservations.indexOf(res));
+                dataAccess.removeReservation(res);
+                //Reservations.remove(Reservations.indexOf(res));
                 break;
             }
         }
 
     }
+
     /**
      * Removes all reservations from the list
      */
     public static void ClearAllReservations() {
         DataAccess dataAccess = DataAccess.getInstance();
-        List<Reservation> Reservations = dataAccess.findAllReservations(); //ToDo don't bullshit
+        List<Reservation> Reservations = dataAccess.findAllReservations();
 
         for (Reservation reservation : Reservations) {
             reservation.cancelReservation();
-            Reservations.remove(Reservations.indexOf(reservation));
         }
 
     }
 
-     /**
+    /**
      * returns a list of rooms which are open for specified timeslot
+     *
      * @param t the timeslot to check for
-     * @param allRooms a list of all rooms. TODO: make roomcontroller static, get list from there
      * @return list of rooms open at timeslot
      */
-    public static List<Room> getOpenRooms(TimeSlot t, List<Room> allRooms)
-    {
+    public static List<Room> getOpenRooms(TimeSlot t) {
+
+        DataAccess dataAccess = DataAccess.getInstance();
+        List<Room> allRooms = dataAccess.findAllRooms();
         List<Room> openRooms = new ArrayList<Room>();
         for (Room r : allRooms) {
             if (available(r, t)) {
@@ -84,9 +82,10 @@ public class ReservationController {
         return openRooms;
     }
 
-     /**
+    /**
      * checks if a timeslot fits into the reservations of a room
-     * @param room the room to check
+     *
+     * @param room     the room to check
      * @param timeslot the timeslot to check for
      * @return true if timeslot open, false otherwise
      */
@@ -96,11 +95,11 @@ public class ReservationController {
         for (Reservation reservation : Reservations) {
             if (reservation.getRoom().equals(room)) {
                 TimeSlot t = reservation.getTimeSlot();
-                if (timeslot.getStart().after(t.getStart())&&timeslot.getStart().before(t.getEnd())) {
+                if (timeslot.getStart().after(t.getStart()) && timeslot.getStart().before(t.getEnd())) {
                     //the start of the needed timeslot is in between the start and end of another timeslot
                     return false;
                 }
-                if (timeslot.getEnd().after(t.getStart())&&timeslot.getEnd().before(t.getEnd())) {
+                if (timeslot.getEnd().after(t.getStart()) && timeslot.getEnd().before(t.getEnd())) {
                     //the end of the needed timeslot is in between the start and end of another timeslot
                     return false;
                 }

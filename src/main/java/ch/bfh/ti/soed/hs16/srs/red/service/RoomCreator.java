@@ -5,9 +5,10 @@
  */
 package ch.bfh.ti.soed.hs16.srs.red.service;
 
-import ch.bfh.ti.soed.hs16.srs.red.jpa.MyRoom;
+import ch.bfh.ti.soed.hs16.srs.red.data.DataAccess;
+import ch.bfh.ti.soed.hs16.srs.red.data.Room;
+
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashSet;
@@ -15,35 +16,35 @@ import java.util.Set;
 
 
 /**
- *
  * @author Martin
  */
 public class RoomCreator {
 
-    public MyRoom createRoom(String name, String building, int size){
-        return new MyRoom(name, building, size);
-        //TODO add Room to Database
+    public Room createRoom(String name, String building, int size) {
+        DataAccess dataAccess = DataAccess.getInstance();
+        return dataAccess.makeRoom(name, building, size);
+
     }
 
     // Input has to be an *.csv file with 3 collumns, one room per collumn in order: name, building, size
     // Sanity Check before calling this class
-    public Set<MyRoom> createRoomsFromCSV(String filepath) throws FileNotFoundException, IOException{
-        Set<MyRoom> rooms = new HashSet();
-            System.out.println("Called Class");
-            String line;
-            String splitter = ";";
-            String[] room;
+    public Set<Room> createRoomsFromCSV(String filepath) throws IOException {
+        Set<Room> rooms = new HashSet();
+        System.out.println("Called Class");
+        String line;
+        String splitter = ";";
+        String[] room;
 
-  try (BufferedReader br = new BufferedReader(new FileReader(filepath))){
-          while((line = br.readLine()) != null){
+        try (BufferedReader br = new BufferedReader(new FileReader(filepath))) {
+            while ((line = br.readLine()) != null) {
                 room = line.split(splitter);
-                System.out.println(" "+ room.length);
+                System.out.println(" " + room.length);
                 rooms.add(createRoom(room[0], room[1], Integer.parseInt(room[2])));
-          }
-    } catch (Exception e) {
+            }
+        } catch (Exception e) {
 
-    }
-      return rooms;
+        }
+        return rooms;
     }
 
 

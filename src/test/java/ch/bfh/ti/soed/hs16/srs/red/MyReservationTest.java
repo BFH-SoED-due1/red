@@ -12,14 +12,13 @@ import ch.bfh.ti.soed.hs16.srs.red.data.TimeSlot;
 import ch.bfh.ti.soed.hs16.srs.red.jpa.MyRoom;
 import ch.bfh.ti.soed.hs16.srs.red.jpa.MyUser;
 import ch.bfh.ti.soed.hs16.srs.red.service.ReservationController;
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 
 /**
@@ -80,7 +79,7 @@ public class MyReservationTest {
         Reservation reservation1 = user.makeReservation(room1, new TimeSlot(new Date(1000*60*60*24), new Date(1000*60*60*24*3)));
         Reservation reservation2 = user.makeReservation(room2, new TimeSlot(new Date(1000*60*60*24), new Date(1000*60*60*24*3)));
         Reservation reservation3 = user.makeReservation(room3, new TimeSlot(new Date(1000*60*60*24*3), new Date(1000*60*60*24*5)));
-        List<Room> openList = ReservationController.getOpenRooms(new TimeSlot(new Date(1000*60*60*24*2), new Date(1000*60*60*24*3)), roomList);
+        List<Room> openList = ReservationController.getOpenRooms(new TimeSlot(new Date(1000*60*60*24*2), new Date(1000*60*60*24*3)));
         assertTrue(openList.size()==1&&openList.contains(room3));
     }
 
