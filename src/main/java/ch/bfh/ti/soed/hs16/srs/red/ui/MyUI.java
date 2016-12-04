@@ -5,8 +5,14 @@
  */
 package ch.bfh.ti.soed.hs16.srs.red.ui;
 
+import ch.bfh.ti.soed.hs16.srs.red.ui.views.LoginView;
+import ch.bfh.ti.soed.hs16.srs.red.ui.views.MyReservationView;
+import ch.bfh.ti.soed.hs16.srs.red.ui.views.RoomsView;
+import ch.bfh.ti.soed.hs16.srs.red.ui.views.StartView;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
+import com.vaadin.navigator.Navigator;
+import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.Button;
@@ -29,24 +35,24 @@ import javax.servlet.annotation.WebServlet;
 @Theme("mytheme")
 public class MyUI extends UI {
 
+    private Navigator navigator;
+    public static final String NAME = "";
+
     @Override
     protected void init(VaadinRequest vaadinRequest) {
-        final VerticalLayout layout = new VerticalLayout();
 
-        final TextField name = new TextField();
-        name.setCaption("Type your name here:");
+        this.navigator = new Navigator(this, this);
 
-        Button button = new Button("Click Me");
-        button.addClickListener(e -> {
-            layout.addComponent(new Label("Thanks " + name.getValue()
-                    + ", it works!"));
-        });
+        navigator.addView("", new LoginView(navigator));
+        navigator.addView("overview", new StartView(navigator));
+        navigator.addView("my Reservation", new MyReservationView(navigator));
+        navigator.addView("rooms", new RoomsView(navigator));
 
-        layout.addComponents(name, button);
-        layout.setMargin(true);
-        layout.setSpacing(true);
+    }
 
-        setContent(layout);
+    @Override
+    public Navigator getNavigator() {
+        return navigator;
     }
 
     @WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
