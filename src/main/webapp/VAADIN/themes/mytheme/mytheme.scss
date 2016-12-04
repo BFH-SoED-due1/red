@@ -26,5 +26,132 @@
 @mixin mytheme {
   @include valo;
 
-  // Insert your own theme rules here
+  //-------------------custom css-------------------------
+
+  /*------------------------------------------------------
+  general
+  ------------------------------------------------------*/
+
+  .v-panel {
+   border: 0;
+  }
+
+  .v-caption {
+    text-align: center;
+    margin-top: 3em;
+    margin-bottom: 1em;
+
+    .v-captiontext {
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+  }
+
+  .v-widget {
+    text-align: center;
+
+    .v-label {
+      margin-top: 9em;
+      font-size: 1.4em;
+    }
+  }
+
+  .v-scrollable {
+    background-color: white;
+
+  }
+
+  /*------------------------------------------------------
+  login
+  ------------------------------------------------------*/
+  .buttonLogin {
+    margin-top: 3em;
+  }
+
+  .labelLogin {
+    margin-top: 2em;
+  }
+
+
+
+  /*------------------------------------------------------
+  menu
+  ------------------------------------------------------*/
+
+  .menu {
+    margin-top: 3em;
+    margin-bottom: 3em;
+    text-align: center;
+    border-bottom: 0.5em;
+
+    .menu-button {
+      margin-left: 2em;
+      margin-right: 2em;
+      font-size: 1.5em;
+      font-weight: bold;
+      border: 0em;
+      outline: none;
+      background: transparent;
+    }
+
+    .menu-button:active,
+    .menu-button:focus,
+    .menu-button:hover {
+      outline: none;
+      border: none;
+      background: transparent;
+      color: #2d55cd;
+
+    }
+  }
+
+  /*------------------------------------------------
+  calendar
+  ------------------------------------------------*/
+
+  .v-calendar-header-day {
+    font-size: 0.9em;
+  }
+
+  //button forward and back
+  .v-calendar-header-week {
+    visibility: hidden;
+    width: 0;
+  }
+
+
+  .v-calendar-week-wrapper, .v-calendar-week-wrapper-Vsized {
+    width: 14em;
+  }
+
+  .v-calendar-day-times-Hsized, .v-calendar-day-times-Hsized .v-datecellslot, .v-calendar-day-times-Hsized .v-datecellslot-even {
+    width: 14em;
+  }
+
+  .v-calendar-weekly-longevents {
+    margin-left: 0;
+
+  }
+
+  .v-caption,  .v-caption-calendarDayView {
+    width: 14em;
+  }
+
+  .v-has-caption, .v-has-caption > .v-caption {
+    margin-right: -2em;
+  }
+
+  //custom calendar style
+  .calendarDayView {
+    .v-calendar-times {
+      visibility: hidden;
+      width: 0;
+    }
+
+    .v-calendar-weekly-longevents {
+      margin-left: 0;
+    }
+
+  }
+
 }
