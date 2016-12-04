@@ -34,7 +34,8 @@ public class LoginView extends CustomComponent implements View {
         this.passwordField = new PasswordField("password");
         this.layout = new GridLayout(6,6);
         this.root = new Panel();
-        this.userController = new UserController();
+        //this.userController = new UserController();
+        //TODO: handle with user controller
         this.error = new Label();
 
         /*-------------------------------

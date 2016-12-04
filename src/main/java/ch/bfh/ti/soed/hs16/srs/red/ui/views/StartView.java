@@ -57,8 +57,8 @@ public class StartView extends CustomComponent implements View {
         this.calendarLayout = new HorizontalLayout();
         this.menu = new Menu(this.nav);
         this.roomController = new RoomController();
-        this.rooms = roomController.getRooms();
-
+        //this.rooms = roomController.getRooms();
+        //TODO: handle with Room Controller
 
         //----------------löschen wenn datenbank klappt
         if(rooms == null) {
