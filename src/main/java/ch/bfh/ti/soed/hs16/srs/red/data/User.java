@@ -12,8 +12,10 @@ package ch.bfh.ti.soed.hs16.srs.red.data;
 public interface User {
 
     String getName();
+    int getID();
+    int getRole();
+    void setName(String name);
+    void setID(int id);
+    void setRole(int role);
 
-    Reservation makeReservation(Room room, TimeSlot timeslot);
-
-    void cancelReservation(Reservation res);
 }

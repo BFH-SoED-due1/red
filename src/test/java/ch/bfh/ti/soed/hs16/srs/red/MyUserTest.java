@@ -7,11 +7,17 @@ package ch.bfh.ti.soed.hs16.srs.red;
 
 
 import ch.bfh.ti.soed.hs16.srs.red.data.Reservation;
+import ch.bfh.ti.soed.hs16.srs.red.data.Room;
 import ch.bfh.ti.soed.hs16.srs.red.data.TimeSlot;
+import ch.bfh.ti.soed.hs16.srs.red.data.User;
 import ch.bfh.ti.soed.hs16.srs.red.jpa.MyRoom;
 import ch.bfh.ti.soed.hs16.srs.red.jpa.MyUser;
+import ch.bfh.ti.soed.hs16.srs.red.service.ReservationController;
+import ch.bfh.ti.soed.hs16.srs.red.service.RoomController;
+import ch.bfh.ti.soed.hs16.srs.red.service.UserController;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -25,36 +31,62 @@ public class MyUserTest {
 
     @Test
     public void testMakeReservationsAddsReservationToReservations(){
-        MyUser user = new MyUser("Ralph", 1, 1);
-        MyRoom room1 = new MyRoom("406", "HG", 30);
-        Set<Reservation> reservations;
-        TimeSlot slot = new TimeSlot(new Date(9364), new Date(14588));
-        Reservation res = user.makeReservation(room1, slot);
-        assertTrue(user.getReservations().contains(res));
+        UserController userController = new UserController(null);
+        ReservationController reservationController = new ReservationController();
+        RoomController roomController = new RoomController();
+        reservationController.clearAllReservations();
+        userController.clearAllUsers();
+        roomController.clearAllRooms();
+        userController.makeUser("Ralph", 1, 1);
+        User user = userController.findUser(1);
+        roomController.addRoom(new MyRoom(1, "406", "HG", 30));
+        Room room = roomController.findRoom(1);
+        reservationController.createReservation(1, new TimeSlot(new Date(9364), new Date(14588)), room, user);
+        Reservation res = reservationController.findReservation(1);
+        assertTrue(reservationController.findReservationsOfUser(user).contains(res));
     }
     @Test
     public void testGetReservationsGetsReservations() {
-        MyUser user = new MyUser("Ralph", 1, 1);
-        MyRoom room1 = new MyRoom("406", "HG", 30);
+        UserController userController = new UserController(null);
+        ReservationController reservationController = new ReservationController();
+        RoomController roomController = new RoomController();
+        reservationController.clearAllReservations();
+        userController.clearAllUsers();
+        roomController.clearAllRooms();
+        userController.makeUser("Ralph", 1, 1);
+        User user = userController.findUser(1);
+        roomController.addRoom(new MyRoom(1, "406", "HG", 30));
+        Room room = roomController.findRoom(1);
         Set<Reservation> reservations = new HashSet<>();
-        TimeSlot slot = new TimeSlot(new Date(9364), new Date(14588));
-        reservations.add(user.makeReservation(room1, slot));
-        room1 = new MyRoom("209", "Nord", 1297);
-        slot = new TimeSlot(new Date(75863), new Date(75882));
-        reservations.add(user.makeReservation(room1, slot));
-        assertEquals(user.getReservations(), reservations);
+        reservationController.createReservation(1, new TimeSlot(new Date(9364), new Date(14588)), room, user);
+        Reservation res1 = reservationController.findReservation(1);
+        reservations.add(res1);
+        roomController.addRoom(new MyRoom(2, "209", "Nord", 1297));
+        Room room2 = roomController.findRoom(2);
+        reservationController.createReservation(2, new TimeSlot(new Date(75863), new Date(75882)), room2, user);
+        Reservation res2 = reservationController.findReservation(2);
+        reservations.add(res2);
+        assertTrue(reservationController.findReservationsOfUser(user).containsAll(reservations));
 
     }
 
     @Test
     public void testCanceledReservationsVanish() {
-        MyUser user = new MyUser("Ralph", 1, 1);
-        MyRoom room1 = new MyRoom("406", "HG", 30);
-        Set<Reservation> reservations;
-        TimeSlot slot = new TimeSlot(new Date(9364), new Date(14588));
-        Reservation res = user.makeReservation(room1, slot);
-        user.cancelReservation(res);
-        reservations = user.getReservations();
+        UserController userController = new UserController(null);
+        ReservationController reservationController = new ReservationController();
+        RoomController roomController = new RoomController();
+        reservationController.clearAllReservations();
+        userController.clearAllUsers();
+        roomController.clearAllRooms();
+        userController.makeUser("Ralph", 1, 1);
+        User user = userController.findUser(1);
+        roomController.addRoom(new MyRoom(1, "406", "HG", 30));
+        Room room = roomController.findRoom(1);
+        List<Reservation> reservations;
+        reservationController.createReservation(1, new TimeSlot(new Date(9364), new Date(14588)), room, user);
+        Reservation res = reservationController.findReservation(1);  
+        reservationController.cancelReservation(res);
+        reservations = reservationController.findReservationsOfUser(user);
         assertFalse(reservations.contains(res));
 
     }

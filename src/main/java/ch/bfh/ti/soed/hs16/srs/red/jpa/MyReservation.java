@@ -9,28 +9,54 @@ import ch.bfh.ti.soed.hs16.srs.red.data.Reservation;
 import ch.bfh.ti.soed.hs16.srs.red.data.Room;
 import ch.bfh.ti.soed.hs16.srs.red.data.TimeSlot;
 import ch.bfh.ti.soed.hs16.srs.red.data.User;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 
 /**
  * @author Martin
  */
+@Entity
+@Table
 public class MyReservation implements Reservation {
-    private User owner;
-    private Room room;
+    @Id
+    @GeneratedValue(strategy =GenerationType.AUTO)
+    private int id;
+    
+    @OneToOne(cascade = CascadeType.ALL)
     private TimeSlot timeslot;
+    
+    @ManyToOne
+    private MyUser owner;
+    
+    @ManyToOne()
+    private MyRoom room;
+    
+    public MyReservation(int id,User user, Room room, TimeSlot timeslot) {
+        this.id = id;
+        this.owner = (MyUser) user;
+        this.room = (MyRoom) room;
+        this.timeslot = timeslot;
+
+    }
 
 
     public MyReservation(User user, Room room, TimeSlot timeslot) {
-        this.owner = user;
-        this.room = room;
+        this.owner = (MyUser) user;
+        this.room = (MyRoom) room;
         this.timeslot = timeslot;
-        room.addReservation(this);
+
+    }
+    public MyReservation() {
+        
     }
 
-    @Override
-    public void cancelReservation() {
-        room.removeReservation(this);
-    }
 
     @Override
     public User getOwner() {
@@ -38,15 +64,45 @@ public class MyReservation implements Reservation {
     }
 
     @Override
+    public void setOwner(User owner) {
+        this.owner = (MyUser) owner;
+    }
+    
+    @Override
     public Room getRoom() {
         return room;
     }
 
-
+    @Override
+    public void setRoom(Room room) {
+        this.room = (MyRoom) room;
+    }
+    
     @Override
     public TimeSlot getTimeSlot() {
         return timeslot;
     }
+
+    @Override
+    public void setTimeSlot(TimeSlot timeSlot) {
+        this.timeslot=timeSlot;
+    }
+    
+    @Override
+    public int getId() {
+       return id;
+    }
+
+    @Override
+    public void setId(int id) {
+       this.id = id;
+    }
+
+    
+
+    
+
+    
 
 
 }
