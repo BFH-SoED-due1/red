@@ -6,51 +6,75 @@
 package ch.bfh.ti.soed.hs16.srs.red.jpa;
 
 import ch.bfh.ti.soed.hs16.srs.red.data.Reservation;
-import ch.bfh.ti.soed.hs16.srs.red.data.Room;
-import ch.bfh.ti.soed.hs16.srs.red.data.TimeSlot;
 import ch.bfh.ti.soed.hs16.srs.red.data.User;
-import ch.bfh.ti.soed.hs16.srs.red.service.ReservationController;
+import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Id;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
-import java.util.HashSet;
-import java.util.Set;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.OneToMany;
 
 
 /**
  * @author Martin
  */
+@Entity
+@Table
 public class MyUser implements User {
-    private String name;
+    @Id
+    @GeneratedValue(strategy =GenerationType.AUTO)
     private int id;
+    
+    private String name;
     private int role;
-    private Set<Reservation> reservations = new HashSet<>();
+   
+    @OneToMany(mappedBy="owner",cascade = CascadeType.ALL)
+    private List<MyReservation> reservations;
 
     public MyUser(String name, int id, int role) {
         this.name = name;
         this.id = id;
         this.role = role;
     }
+    public MyUser(String name,int role) {
+        this.name = name;
+        this.role = role;
+    }
+    public MyUser() {
+
+    }
 
     public String getName() {
         return name;
     }
 
-    public Reservation makeReservation(Room room, TimeSlot timeslot) {
-        Reservation res = ReservationController.createReservation(timeslot, room, this);
-        if (res != null) {
-            reservations.add(res);
-            return res;
-        }
-        return null;
 
+
+    @Override
+    public int getID() {
+        return this.id;
     }
 
     @Override
-    public void cancelReservation(Reservation res) {
-        ReservationController.cancelReservation(res);
-        this.reservations.remove(res);
+    public int getRole() {
+       return this.role;
     }
 
-    public Set<Reservation> getReservations() {
-        return this.reservations;
+    @Override
+    public void setName(String name) {
+        this.name=name;
+    }
+
+    @Override
+    public void setID(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public void setRole(int role) {
+        this.role = role;
     }
 }

@@ -52,6 +52,11 @@ public class UserController {
         }
         return -1;
     }
+    
+    public User findUser(int id) {
+          DataAccess dataAccess = DataAccess.getInstance();
+          return dataAccess.findUser(id);
+    }
 
     public void makeUser(String name, int id, int role) {
         DataAccess dataAccess = DataAccess.getInstance();
@@ -63,6 +68,14 @@ public class UserController {
     public List<User> getAllUser() {
         DataAccess dataAccess = DataAccess.getInstance();
         return dataAccess.findAllUsers();
+    }
+    
+    public void clearAllUsers() {
+        DataAccess dataAccess = DataAccess.getInstance();
+        List<User> users = dataAccess.findAllUsers();
+        for (User user : users) {
+            removeUser(user);
+        }
     }
 
 

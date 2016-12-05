@@ -10,13 +10,21 @@ package ch.bfh.ti.soed.hs16.srs.red.data;
  */
 public interface Room {
 
-    void addReservation(Reservation res);
 
-    void removeReservation(Reservation res);
 
     String getName();
-
+    
+    void setName(String name);
+    
     String getBuilding();
+    
+    void setBuilding(String building);
 
     int getSize();
+    
+    void setSize(int size);
+    
+    int getId();
+    
+    void setId(int id);
 }

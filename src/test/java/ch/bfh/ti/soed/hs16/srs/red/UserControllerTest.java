@@ -83,8 +83,10 @@ public class UserControllerTest {
         @Test
     public void testMakeUser(){
         UserController userController = new UserController(null);
+        userController.clearAllUsers();
         userController.makeUser("Franz",2,3);
-        MyUser franz = new MyUser("Franz",2,3);
+        User franz = userController.findUser(2);
+
         assertTrue(userController.getAllUser().contains(franz));
 
         }
@@ -92,8 +94,9 @@ public class UserControllerTest {
         @Test
     public void testRemoveUser(){
             UserController userController = new UserController(null);
-            userController.makeUser("Franz",2,3);
-            MyUser franz = new MyUser("Franz",2,3);
+            userController.clearAllUsers();
+            userController.makeUser("Franz",3,3);
+            User franz = new MyUser("Franz",3,3);
             userController.removeUser(franz);
             assertTrue(!userController.getAllUser().contains(franz));
         }

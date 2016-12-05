@@ -11,11 +11,17 @@ package ch.bfh.ti.soed.hs16.srs.red.data;
  */
 public interface Reservation {
 
-    void cancelReservation();
 
+    int getId();
+    void setId(int id);
+    
     User getOwner();
+    void setOwner(User owner);
 
     Room getRoom();
+    void setRoom(Room room);
+
 
     TimeSlot getTimeSlot();
+    void setTimeSlot(TimeSlot timeSlot);
 }

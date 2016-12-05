@@ -29,7 +29,7 @@ public class RoomController {
             return -1;//nothing happens return -1 => room already exist or null
         }
 
-        dataAccess.makeRoom(room.getName(), room.getBuilding(), room.getSize());//return 1 => success
+        dataAccess.makeRoom(room.getId(), room.getName(), room.getBuilding(), room.getSize());//return 1 => success
         return 1;
 
         /*if (roomOverview == null) {
@@ -62,6 +62,11 @@ public class RoomController {
 
         }
 
+    }
+    
+    public Room findRoom(int id) {
+          DataAccess dataAccess = DataAccess.getInstance();
+          return dataAccess.findRoom(id);
     }
 
     public List<Room> getAllRooms() {

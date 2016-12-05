@@ -35,6 +35,12 @@ public abstract class DataAccess { // acts as a singleton
     // Methods for persons
     //////////////////////
     public abstract User makeUser(String name, int id, int role);
+    
+    public abstract User makeUser(String name, int role);
+    
+    public abstract User updateUser(String name, int id, int role);
+    
+    public abstract User findUser(int id);
 
     public abstract List<User> findAllUsers();
 
@@ -43,17 +49,30 @@ public abstract class DataAccess { // acts as a singleton
 
     // Methods for rooms
     ////////////////////
+    public abstract Room makeRoom(int id, String name, String building, int capacity);
+    
     public abstract Room makeRoom(String name, String building, int capacity);
 
     public abstract List<Room> findAllRooms();
 
     public abstract void removeRoom(Room room);
-
+    
+    public abstract Room updateRoom(int id, String name, String building, int capacity);
+    
+    public abstract Room findRoom(int id);
     // Methods for reservations
     ///////////////////////////
+    public abstract Reservation makeReservation(int id, User user, Room room, TimeSlot timeslot);
+    
     public abstract Reservation makeReservation(User user, Room room, TimeSlot timeslot);
 
     public abstract List<Reservation> findAllReservations();
+    public abstract List<Reservation> findAllReservationsOfUser(User owner);
 
     public abstract void removeReservation(Reservation reservation);
+    
+    public abstract Reservation updateReservation(int id, User user, Room room, TimeSlot timeslot);
+    
+    public abstract Reservation findReservation(int id);
+    
 }

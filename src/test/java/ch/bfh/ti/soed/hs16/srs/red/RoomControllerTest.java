@@ -34,14 +34,14 @@ public class RoomControllerTest {
         roomController.clearAllRooms();
         //Creates 10 rooms and add it to DataBase
         for (int i = 1; i <= 10; i++) {
-            roomController.addRoom(new MyRoom("room" + i, "building" + i, i));
+            roomController.addRoom(new MyRoom(i, "room" + i, "building" + i, i));
         }
 
         roomOverviewTest = roomController.getAllRooms();
 
 
 
-        MyRoom r6 = new MyRoom("room6", "building6", 6);
+        Room r6 = roomController.findRoom(6);
         roomController.removeRoom(r6);
 
         List<Room> room = roomController.getAllRooms();
@@ -59,6 +59,7 @@ public class RoomControllerTest {
     public void testRemoveRoomNotExists() {
 
         RoomController roomController = new RoomController();
+        roomController.clearAllRooms();
         //Creates 10 rooms and add it to DataBase
         for (int i = 1; i <= 10; i++) {
             roomController.addRoom(new MyRoom("room" + i, "building" + i, i));

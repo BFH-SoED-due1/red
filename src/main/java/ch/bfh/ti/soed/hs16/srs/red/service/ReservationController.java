@@ -19,11 +19,21 @@ public class ReservationController {
      * @param user     User creating reservation
      * @return reservation if successful, null otherwise
      */
-    public static Reservation createReservation(TimeSlot timeslot, Room room, User user) {
+    public Reservation createReservation(TimeSlot timeslot, Room room, User user) {
         DataAccess dataAccess = DataAccess.getInstance();
 
         if (available(room, timeslot)) {
             Reservation res = dataAccess.makeReservation(user, room, timeslot);
+            return res;
+        }
+        return null;
+    }
+    
+    public Reservation createReservation(int id, TimeSlot timeslot, Room room, User user) {
+        DataAccess dataAccess = DataAccess.getInstance();
+
+        if (available(room, timeslot)) {
+            Reservation res = dataAccess.makeReservation(id, user, room, timeslot);
             return res;
         }
         return null;
@@ -35,19 +45,24 @@ public class ReservationController {
      *
      * @param res the cancelled reservation
      */
-    public static void cancelReservation(Reservation res) {
+    public void cancelReservation(Reservation res) {
         DataAccess dataAccess = DataAccess.getInstance();
-        List<Reservation> Reservations = dataAccess.findAllReservations();
+        if (res != null) {
+            dataAccess.removeReservation(res);
 
-        for (Reservation reservation : Reservations) {
-            if (reservation.equals(res)) {
-                res.cancelReservation();
-                dataAccess.removeReservation(res);
-                //Reservations.remove(Reservations.indexOf(res));
-                break;
-            }
         }
 
+    }
+    
+    public Reservation findReservation(int id) {
+          DataAccess dataAccess = DataAccess.getInstance();
+          return dataAccess.findReservation(id);
+    }
+    
+    
+    public List<Reservation> findReservationsOfUser(User owner) {
+          DataAccess dataAccess = DataAccess.getInstance();
+          return dataAccess.findAllReservationsOfUser(owner);
     }
 
     /**
@@ -58,7 +73,7 @@ public class ReservationController {
         List<Reservation> Reservations = dataAccess.findAllReservations();
 
         for (Reservation reservation : Reservations) {
-            reservation.cancelReservation();
+            dataAccess.removeReservation(reservation);
         }
 
     }
@@ -107,6 +122,19 @@ public class ReservationController {
 
         }
         return true;
+    }
+    
+    public List<Reservation> getAllReservations() {
+        DataAccess dataAccess = DataAccess.getInstance();
+        return dataAccess.findAllReservations();
+    }
+
+    public void clearAllReservations() {
+        DataAccess dataAccess = DataAccess.getInstance();
+        List<Reservation> reservations = dataAccess.findAllReservations();
+        for (Reservation reservation : reservations) {
+            cancelReservation(reservation);
+        }
     }
 
 
