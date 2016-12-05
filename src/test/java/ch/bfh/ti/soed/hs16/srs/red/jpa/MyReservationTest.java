@@ -10,18 +10,17 @@ import ch.bfh.ti.soed.hs16.srs.red.data.Reservation;
 import ch.bfh.ti.soed.hs16.srs.red.data.Room;
 import ch.bfh.ti.soed.hs16.srs.red.data.TimeSlot;
 import ch.bfh.ti.soed.hs16.srs.red.data.User;
-import ch.bfh.ti.soed.hs16.srs.red.jpa.MyRoom;
-import ch.bfh.ti.soed.hs16.srs.red.jpa.MyUser;
 import ch.bfh.ti.soed.hs16.srs.red.service.ReservationController;
 import ch.bfh.ti.soed.hs16.srs.red.service.RoomController;
 import ch.bfh.ti.soed.hs16.srs.red.service.UserController;
-import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import org.junit.Test;
 
 
 /**

@@ -7,7 +7,6 @@ package ch.bfh.ti.soed.hs16.srs.red.service;
 
 import ch.bfh.ti.soed.hs16.srs.red.data.DataAccess;
 import ch.bfh.ti.soed.hs16.srs.red.data.Room;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;

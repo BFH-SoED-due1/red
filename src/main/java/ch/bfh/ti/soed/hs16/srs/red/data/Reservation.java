@@ -14,7 +14,7 @@ public interface Reservation {
 
     int getId();
     void setId(int id);
-    
+
     User getOwner();
     void setOwner(User owner);
 

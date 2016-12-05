@@ -5,10 +5,8 @@
  */
 package ch.bfh.ti.soed.hs16.srs.red.jpa;
 
-import ch.bfh.ti.soed.hs16.srs.red.jpa.MyRoom;
-import org.junit.Test;
-
 import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 
 
 public class MyRoomTest {

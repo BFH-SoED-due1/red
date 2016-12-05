@@ -1,7 +1,10 @@
 package ch.bfh.ti.soed.hs16.srs.red.service;
 
-import ch.bfh.ti.soed.hs16.srs.red.data.*;
-
+import ch.bfh.ti.soed.hs16.srs.red.data.DataAccess;
+import ch.bfh.ti.soed.hs16.srs.red.data.Reservation;
+import ch.bfh.ti.soed.hs16.srs.red.data.Room;
+import ch.bfh.ti.soed.hs16.srs.red.data.TimeSlot;
+import ch.bfh.ti.soed.hs16.srs.red.data.User;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +31,7 @@ public class ReservationController {
         }
         return null;
     }
-    
+
     public Reservation createReservation(int id, TimeSlot timeslot, Room room, User user) {
         DataAccess dataAccess = DataAccess.getInstance();
 
@@ -53,13 +56,13 @@ public class ReservationController {
         }
 
     }
-    
+
     public Reservation findReservation(int id) {
           DataAccess dataAccess = DataAccess.getInstance();
           return dataAccess.findReservation(id);
     }
-    
-    
+
+
     public List<Reservation> findReservationsOfUser(User owner) {
           DataAccess dataAccess = DataAccess.getInstance();
           return dataAccess.findAllReservationsOfUser(owner);
@@ -123,7 +126,7 @@ public class ReservationController {
         }
         return true;
     }
-    
+
     public List<Reservation> getAllReservations() {
         DataAccess dataAccess = DataAccess.getInstance();
         return dataAccess.findAllReservations();

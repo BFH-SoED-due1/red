@@ -7,7 +7,6 @@ package ch.bfh.ti.soed.hs16.srs.red.service;
 
 import ch.bfh.ti.soed.hs16.srs.red.data.DataAccess;
 import ch.bfh.ti.soed.hs16.srs.red.data.Room;
-
 import java.util.List;
 
 
@@ -63,7 +62,7 @@ public class RoomController {
         }
 
     }
-    
+
     public Room findRoom(int id) {
           DataAccess dataAccess = DataAccess.getInstance();
           return dataAccess.findRoom(id);

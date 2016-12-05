@@ -7,13 +7,9 @@ package ch.bfh.ti.soed.hs16.srs.red.service;
 
 import ch.bfh.ti.soed.hs16.srs.red.data.DataAccess;
 import ch.bfh.ti.soed.hs16.srs.red.data.User;
-
 import java.util.List;
 import java.util.Map;
 
-/**
- * @author Martin
- */
 
 
 public class UserController {
@@ -52,7 +48,7 @@ public class UserController {
         }
         return -1;
     }
-    
+
     public User findUser(int id) {
           DataAccess dataAccess = DataAccess.getInstance();
           return dataAccess.findUser(id);
@@ -69,7 +65,7 @@ public class UserController {
         DataAccess dataAccess = DataAccess.getInstance();
         return dataAccess.findAllUsers();
     }
-    
+
     public void clearAllUsers() {
         DataAccess dataAccess = DataAccess.getInstance();
         List<User> users = dataAccess.findAllUsers();

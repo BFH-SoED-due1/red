@@ -13,18 +13,18 @@ public interface Room {
 
 
     String getName();
-    
+
     void setName(String name);
-    
+
     String getBuilding();
-    
+
     void setBuilding(String building);
 
     int getSize();
-    
+
     void setSize(int size);
-    
+
     int getId();
-    
+
     void setId(int id);
 }

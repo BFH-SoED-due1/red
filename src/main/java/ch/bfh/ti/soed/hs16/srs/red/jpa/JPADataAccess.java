@@ -7,12 +7,15 @@
  */
 package ch.bfh.ti.soed.hs16.srs.red.jpa;
 
-import ch.bfh.ti.soed.hs16.srs.red.data.*;
-
+import ch.bfh.ti.soed.hs16.srs.red.data.DataAccess;
+import ch.bfh.ti.soed.hs16.srs.red.data.Reservation;
+import ch.bfh.ti.soed.hs16.srs.red.data.Room;
+import ch.bfh.ti.soed.hs16.srs.red.data.TimeSlot;
+import ch.bfh.ti.soed.hs16.srs.red.data.User;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-import java.util.List;
 
 public class JPADataAccess extends DataAccess {
     public static final String PERSISTENCE_UNIT = "srs-pu";
@@ -30,7 +33,7 @@ public class JPADataAccess extends DataAccess {
         this.entityManager.getTransaction().commit();
         return user;
     }
-    
+
     public User makeUser(String name,int role) {
         this.entityManager.getTransaction().begin();
         MyUser user = new MyUser(name,role);
@@ -38,7 +41,7 @@ public class JPADataAccess extends DataAccess {
         this.entityManager.getTransaction().commit();
         return user;
     }
-    
+
     @Override
     public User updateUser(String name, int id, int role) {
         this.entityManager.getTransaction().begin();
@@ -48,7 +51,7 @@ public class JPADataAccess extends DataAccess {
         this.entityManager.getTransaction().commit();
         return user;
     }
-    
+
     @Override
     public User findUser(int id) {
         User user = this.entityManager.find(MyUser.class, id);
@@ -61,8 +64,8 @@ public class JPADataAccess extends DataAccess {
         Query query = this.entityManager.createQuery("select p from MyUser p");
         return query.getResultList();
     }
-    
-    
+
+
 
 
     @Override
@@ -82,7 +85,7 @@ public class JPADataAccess extends DataAccess {
         this.entityManager.getTransaction().commit();
         return room;
     }
-    
+
     @Override
     public Room makeRoom(String name, String building, int capacity) {
         this.entityManager.getTransaction().begin();
@@ -107,7 +110,7 @@ public class JPADataAccess extends DataAccess {
         this.entityManager.remove(room);
         this.entityManager.getTransaction().commit();
     }
-    
+
     @Override
     public Room updateRoom(int id, String name, String building, int capacity) {
         this.entityManager.getTransaction().begin();
@@ -118,7 +121,7 @@ public class JPADataAccess extends DataAccess {
         this.entityManager.getTransaction().commit();
         return room;
     }
-    
+
     @Override
     public Room findRoom(int id) {
         Room room = this.entityManager.find(MyRoom.class, id);
@@ -133,7 +136,7 @@ public class JPADataAccess extends DataAccess {
         this.entityManager.getTransaction().commit();
         return reservation;
     }
-    
+
     @Override
     public Reservation makeReservation(User user, Room room, TimeSlot timeslot) {
         this.entityManager.getTransaction().begin();
@@ -149,7 +152,7 @@ public class JPADataAccess extends DataAccess {
         Query query = this.entityManager.createQuery("select r from MyReservation r");
         return query.getResultList();
     }
-    
+
     @SuppressWarnings("unchecked")
     @Override
     public List<Reservation> findAllReservationsOfUser(User owner) {
@@ -164,7 +167,7 @@ public class JPADataAccess extends DataAccess {
         this.entityManager.remove(reservation);
         this.entityManager.getTransaction().commit();
     }
-    
+
     @Override
     public Reservation updateReservation(int id, User user, Room room, TimeSlot timeslot) {
         this.entityManager.getTransaction().begin();
@@ -175,7 +178,7 @@ public class JPADataAccess extends DataAccess {
         this.entityManager.getTransaction().commit();
         return reservation;
     }
-    
+
     @Override
     public Reservation findReservation(int id) {
         Reservation reservation = this.entityManager.find(MyReservation.class, id);

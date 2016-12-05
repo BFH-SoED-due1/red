@@ -28,16 +28,16 @@ public class MyReservation implements Reservation {
     @Id
     @GeneratedValue(strategy =GenerationType.AUTO)
     private int id;
-    
+
     @OneToOne(cascade = CascadeType.ALL)
     private TimeSlot timeslot;
-    
+
     @ManyToOne
     private MyUser owner;
-    
+
     @ManyToOne()
     private MyRoom room;
-    
+
     public MyReservation(int id,User user, Room room, TimeSlot timeslot) {
         this.id = id;
         this.owner = (MyUser) user;
@@ -54,7 +54,7 @@ public class MyReservation implements Reservation {
 
     }
     public MyReservation() {
-        
+
     }
 
 
@@ -67,7 +67,7 @@ public class MyReservation implements Reservation {
     public void setOwner(User owner) {
         this.owner = (MyUser) owner;
     }
-    
+
     @Override
     public Room getRoom() {
         return room;
@@ -77,7 +77,7 @@ public class MyReservation implements Reservation {
     public void setRoom(Room room) {
         this.room = (MyRoom) room;
     }
-    
+
     @Override
     public TimeSlot getTimeSlot() {
         return timeslot;
@@ -87,7 +87,7 @@ public class MyReservation implements Reservation {
     public void setTimeSlot(TimeSlot timeSlot) {
         this.timeslot=timeSlot;
     }
-    
+
     @Override
     public int getId() {
        return id;
@@ -98,11 +98,11 @@ public class MyReservation implements Reservation {
        this.id = id;
     }
 
-    
 
-    
 
-    
+
+
+
 
 
 }

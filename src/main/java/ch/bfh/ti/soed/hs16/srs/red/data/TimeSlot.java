@@ -28,7 +28,7 @@ public class TimeSlot {
     @Temporal(TemporalType.DATE)
 
     private Date endTime;
-    
+
 
     public TimeSlot(Date startTime, Date endTime) {
         if (startTime.before(endTime)) {
@@ -40,9 +40,9 @@ public class TimeSlot {
         }
 
     }
-    
+
     public TimeSlot(){
-        
+
     }
 
     public Date getStart() {
@@ -55,15 +55,15 @@ public class TimeSlot {
     public Date getEnd() {
         return endTime;
     }
-    
+
     public void setEnd(Date end){
         this.endTime = end;
     }
-    
+
     public int getId() {
         return id;
     }
-    
+
     public void setId(int id){
         this.id = id;
     }

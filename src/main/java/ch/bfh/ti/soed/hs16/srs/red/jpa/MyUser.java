@@ -5,17 +5,15 @@
  */
 package ch.bfh.ti.soed.hs16.srs.red.jpa;
 
-import ch.bfh.ti.soed.hs16.srs.red.data.Reservation;
 import ch.bfh.ti.soed.hs16.srs.red.data.User;
 import java.util.List;
 import javax.persistence.CascadeType;
-import javax.persistence.Id;
 import javax.persistence.Entity;
-import javax.persistence.Table;
-
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 
 /**
@@ -27,10 +25,10 @@ public class MyUser implements User {
     @Id
     @GeneratedValue(strategy =GenerationType.AUTO)
     private int id;
-    
+
     private String name;
     private int role;
-   
+
     @OneToMany(mappedBy="owner",cascade = CascadeType.ALL)
     private List<MyReservation> reservations;
 
