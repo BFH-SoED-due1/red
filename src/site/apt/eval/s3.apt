@@ -3,7 +3,7 @@
 		-------------
 		Eric Dubuis
 		-------------
-		November 18, 2016
+		November 18, 2016; updated December 11, 2016
 
 
 Deliverable 3
@@ -112,6 +112,47 @@ example, in the Iteration Plan document, however.)
 	50 points at most per team member are attributed to this deliverable. Points may
 not be equally distributed among team members. (However, this is the goal.)
 
+*-------------------------------------------+---------------*-----------------*
+| Item										| Max. points	| Points received |
+*-------------------------------------------+---------------*-----------------*
+| Product backlog items at the beginning\	| 		 6		| 		 6		  |
+| COMMENTS:\								| 				| 				  |
+| - Okay									| 				| 				  |
+*-------------------------------------------+---------------*-----------------*
+| Sprint backlog items / tasks and their states\ | 	6		| 		 4 		  |
+| COMMENTS:\								| 				| 				  |
+| - Sprint backlog not updated (-2)			| 				| 				  |
+*-------------------------------------------+---------------*-----------------*
+| Package structure meets SOLID principles, JDepend\ | 8	| 		 8		  |
+| COMMENTS:\								| 				| 				  |
+| - Okay 									| 				| 				  |
+*-------------------------------------------+---------------*-----------------*
+| Production classes and interfaces\		| 		 8		| 		 7		  |
+| COMMENTS:\								| 				| 				  |
+| - Unused import statements (-)\ 			| 				| 				  |
+| - Annotation @Override sometimes missing (-1)\ | 			| 				  |
+*-------------------------------------------+---------------*-----------------*
+| Working infrastructure with persistence\	| 		 8		| 		 8		  |
+| COMMENTS:\								| 				| 			  	  |
+| - UI: good\							| 				| 				  |
+| - Rest: Good 								| 				| 				  |
+*-------------------------------------------+---------------*-----------------*
+| JUnit tests, code coverage\				| 		 8		| 		 4		  |
+| COMMENTS:\								| 				| 			  	  |
+| - Code coverage weak (-4) 				| 				| 				  |
+*-------------------------------------------+---------------*-----------------*
+| Checkstyle report\						| 		 6		| 		 6		  |
+| COMMENTS:\								| 				| 			  	  |
+| - Many errors (-6) 						| 				| 				  |
+*-------------------------------------------+---------------*-----------------*
+| Miscellaneous\							| 				| 		 		  |
+| COMMENTS:\								| 				| 			  	  |
+| - Use in-memory database for development and testing purpose\ | | 		  |
+| - Bonus UI (+2) 							| 				| 		  2		  |
+*-------------------------------------------+---------------*-----------------*
+| Total										| 		50		| 		 45		  |
+*-------------------------------------------+---------------*-----------------*
+Distribution of points for this deliverable.
 
 
 * Deadline

@@ -5,160 +5,153 @@
  */
 package ch.bfh.ti.soed.hs16.srs.red;
 
-import ch.bfh.ti.soed.hs16.srs.red.data.Room;
-import ch.bfh.ti.soed.hs16.srs.red.jpa.MyRoom;
-import ch.bfh.ti.soed.hs16.srs.red.service.RoomController;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import org.junit.Test;
+
+import ch.bfh.ti.soed.hs16.srs.red.data.Room;
+import ch.bfh.ti.soed.hs16.srs.red.jpa.MyRoom;
+import ch.bfh.ti.soed.hs16.srs.red.service.RoomController;
 
 /**
  * Created by scarface on 10.11.2016.
  */
 public class RoomControllerTest {
 
+	List<Room> roomOverviewTest = new ArrayList<>();
 
-    List<Room> roomOverviewTest = new ArrayList<>();
+	/**
+	 * Test if correct room has been removed
+	 */
+	@Test
+	public void testRemoveRoom() {
+		RoomController roomController = new RoomController();
+		roomController.clearAllRooms();
+		// Creates 10 rooms and add it to DataBase
+		for (int i = 1; i <= 10; i++) {
+			roomController.addRoom(new MyRoom(i, "room" + i, "building" + i, i));
+		}
 
+		roomOverviewTest = roomController.getAllRooms();
 
-    /**
-     * Test if correct room has been removed
-     */
-    @Test
-    public void testRemoveRoom() {
-        RoomController roomController = new RoomController();
-        roomController.clearAllRooms();
-        //Creates 10 rooms and add it to DataBase
-        for (int i = 1; i <= 10; i++) {
-            roomController.addRoom(new MyRoom(i, "room" + i, "building" + i, i));
-        }
+		Room r6 = roomController.findRoom(6);
+		roomController.removeRoom(r6);
 
-        roomOverviewTest = roomController.getAllRooms();
+		List<Room> room = roomController.getAllRooms();
 
+		assertEquals(9, room.size());
 
+		assertFalse(room.contains(r6));
+	}
 
-        Room r6 = roomController.findRoom(6);
-        roomController.removeRoom(r6);
+	/**
+	 * Test if nothing happens when room isn't in the list or room == null
+	 */
+	@Test
+	public void testRemoveRoomNotExists() {
 
-        List<Room> room = roomController.getAllRooms();
+		RoomController roomController = new RoomController();
+		roomController.clearAllRooms();
+		// Creates 10 rooms and add it to DataBase
+		for (int i = 1; i <= 10; i++) {
+			roomController.addRoom(new MyRoom("room" + i, "building" + i, i));
+		}
 
+		roomOverviewTest = roomController.getAllRooms();
 
-        assertEquals(9, room.size());
+		MyRoom r6 = new MyRoom("TestRoom", "TestBuilding", 45);
 
-        assertFalse(room.contains(r6));
-    }
+		MyRoom r7 = null;
 
-    /**
-     * Test if nothing happens when room isn't in the list or room == null
-     */
-    @Test
-    public void testRemoveRoomNotExists() {
+		roomController.removeRoom(r6);
+		roomController.removeRoom(r7);
 
-        RoomController roomController = new RoomController();
-        roomController.clearAllRooms();
-        //Creates 10 rooms and add it to DataBase
-        for (int i = 1; i <= 10; i++) {
-            roomController.addRoom(new MyRoom("room" + i, "building" + i, i));
-        }
+		List<Room> room = roomController.getAllRooms();
 
-        roomOverviewTest = roomController.getAllRooms();
+		assertEquals(10, room.size());
 
-        MyRoom r6 = new MyRoom("TestRoom", "TestBuilding", 45);
+	}
 
+	/**
+	 * Test add new Room to the list
+	 */
+	@Test
+	public void testAddRoom() {
 
-        MyRoom r7 = null;
+		RoomController roomController = new RoomController();
+		roomController.clearAllRooms();
+		// Creates 10 rooms and add it to DataBase
+		for (int i = 1; i <= 10; i++) {
+			roomController.addRoom(new MyRoom("room" + i, "building" + i, i));
+		}
 
-        roomController.removeRoom(r6);
-        roomController.removeRoom(r7);
+		roomOverviewTest = roomController.getAllRooms();
 
-        List<Room> room = roomController.getAllRooms();
+		MyRoom r6 = new MyRoom("newRoom", "newBuilding", 34);
 
+		roomController.addRoom(r6);
+		List<Room> roomList = roomController.getAllRooms();
 
-        assertEquals(10, room.size());
+		assertEquals(11, roomList.size());
+	}
 
-    }
+	/**
+	 * Test add Rooms with same name or null element
+	 */
+	@Test
+	public void testAddRoomWithSameName() {
 
+		RoomController roomController = new RoomController();
+		roomController.clearAllRooms();
+		// Creates 10 rooms and add it to DataBase
+		for (int i = 1; i <= 10; i++) {
+			roomController.addRoom(new MyRoom("room" + i, "building" + i, i));
+		}
 
-    /**
-     * Test add new Room to the list
-     */
-    @Test
-    public void testAddRoom() {
+		roomOverviewTest = roomController.getAllRooms();
 
-        RoomController roomController = new RoomController();
-        roomController.clearAllRooms();
-        //Creates 10 rooms and add it to DataBase
-        for (int i = 1; i <= 10; i++) {
-            roomController.addRoom(new MyRoom("room" + i, "building" + i, i));
-        }
+		MyRoom r6 = new MyRoom("room6", "building6", 6);
 
-        roomOverviewTest = roomController.getAllRooms();
+		roomController.addRoom(r6);
+		List<Room> roomList = roomController.getAllRooms();
 
-        MyRoom r6 = new MyRoom("newRoom", "newBuilding", 34);
+		// TODO The following assert statement is wrong:
+		// assertEquals(10, roomList.size());
+		assertEquals(11, roomList.size());
+	}
 
-        roomController.addRoom(r6);
-        List<Room> roomList = roomController.getAllRooms();
+	/**
+	 * Test add Rooms when list isn't initialized
+	 */
+	@Test
+	public void testAddRoomWithListNull() {
 
-        assertEquals(11, roomList.size());
-    }
+		RoomController roomController = new RoomController();
+		roomController.clearAllRooms();
+		MyRoom r6 = new MyRoom("room6", "building6", 6);
+		roomController.addRoom(r6);
 
-    /**
-     * Test add Rooms with same name or null element
-     */
-    @Test
-    public void testAddRoomWithSameName() {
+		assertEquals(1, roomController.getAllRooms().size());
 
-        RoomController roomController = new RoomController();
-        roomController.clearAllRooms();
-        //Creates 10 rooms and add it to DataBase
-        for (int i = 1; i <= 10; i++) {
-            roomController.addRoom(new MyRoom("room" + i, "building" + i, i));
-        }
+	}
 
-        roomOverviewTest = roomController.getAllRooms();
+	/**
+	 * Test add Rooms when room == null
+	 */
+	@Test
+	public void testAddRoomWithNullRoom() {
 
-        MyRoom r6 = new MyRoom("room6", "building6", 6);
+		RoomController roomController = new RoomController();
+		roomController.clearAllRooms();
+		MyRoom r6 = null;
+		roomController.addRoom(r6);
 
-        roomController.addRoom(r6);
-        List<Room> roomList = roomController.getAllRooms();
+		assertEquals(0, roomController.getAllRooms().size());
 
-        assertEquals(10, roomList.size());
-
-    }
-
-
-    /**
-     * Test add Rooms when list isn't initialized
-     */
-    @Test
-    public void testAddRoomWithListNull() {
-
-        RoomController roomController = new RoomController();
-        roomController.clearAllRooms();
-        MyRoom r6 = new MyRoom("room6", "building6", 6);
-        roomController.addRoom(r6);
-
-        assertEquals(1, roomController.getAllRooms().size());
-
-    }
-
-    /**
-     * Test add Rooms when room == null
-     */
-    @Test
-    public void testAddRoomWithNullRoom() {
-
-        RoomController roomController = new RoomController();
-        roomController.clearAllRooms();
-        MyRoom r6 = null;
-        roomController.addRoom(r6);
-
-        assertEquals(0, roomController.getAllRooms().size());
-
-    }
+	}
 
 }
