@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016 Berner Fachhochschule, Switzerland.
+ * Project Smart Reservation System.
+ * Distributable under GPL license. See terms of license at gnu.org.
+ */
 package ch.bfh.ti.soed.hs16.srs.red.ui.views;
 
 import ch.bfh.ti.soed.hs16.srs.red.data.Room;
@@ -7,16 +12,23 @@ import ch.bfh.ti.soed.hs16.srs.red.ui.helper.Menu;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
-import com.vaadin.ui.*;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.Calendar;
+import com.vaadin.ui.CustomComponent;
+import com.vaadin.ui.GridLayout;
+import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.InlineDateField;
+import com.vaadin.ui.Label;
+import com.vaadin.ui.Layout;
+import com.vaadin.ui.Panel;
 import com.vaadin.ui.components.calendar.CalendarComponentEvents;
 import com.vaadin.ui.components.calendar.event.BasicEvent;
 import com.vaadin.ui.components.calendar.handler.BasicBackwardHandler;
 import com.vaadin.ui.components.calendar.handler.BasicForwardHandler;
-import javafx.util.Pair;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javafx.util.Pair;
 
 /**
  * Created by tambur on 04.12.2016.
@@ -82,7 +94,7 @@ public class StartView extends CustomComponent implements View {
         layout.addComponent(buttonReservation, 0, 5, 0, 5);
         layout.addComponent(calendarLayout, 0, 2, 5, 4);
         layout.addComponent(layoutMenu, 0, 0, 5, 0);
-        
+
         layout.setWidth(100, Unit.PERCENTAGE);
 
         root.setContent(layout);

@@ -1,15 +1,21 @@
+/*
+ * Copyright (c) 2016 Berner Fachhochschule, Switzerland.
+ * Project Smart Reservation System.
+ * Distributable under GPL license. See terms of license at gnu.org.
+ */
 package ch.bfh.ti.soed.hs16.srs.red.ui.views;
 
-import ch.bfh.ti.soed.hs16.srs.red.jpa.MyUser;
 import ch.bfh.ti.soed.hs16.srs.red.service.UserController;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
-import com.vaadin.ui.*;
-import org.hibernate.Session;
-
-import java.util.HashMap;
-import java.util.Map;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.CustomComponent;
+import com.vaadin.ui.GridLayout;
+import com.vaadin.ui.Label;
+import com.vaadin.ui.Panel;
+import com.vaadin.ui.PasswordField;
+import com.vaadin.ui.TextField;
 
 /**
  * Created by tambur on 04.12.2016.

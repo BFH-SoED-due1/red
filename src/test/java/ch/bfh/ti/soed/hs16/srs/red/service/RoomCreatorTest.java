@@ -6,13 +6,10 @@
 package ch.bfh.ti.soed.hs16.srs.red.service;
 
 import ch.bfh.ti.soed.hs16.srs.red.data.Room;
-import ch.bfh.ti.soed.hs16.srs.red.service.RoomCreator;
-import org.junit.Test;
-
 import java.io.IOException;
 import java.util.Set;
-
 import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 
 /**
  *
