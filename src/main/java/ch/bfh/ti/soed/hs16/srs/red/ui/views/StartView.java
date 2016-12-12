@@ -46,7 +46,7 @@ public class StartView extends CustomComponent implements View {
     private Navigator nav;
     private Menu menu;
     private RoomController roomController;
-    List<Room> rooms;
+    private List<Room> rooms;
 
 
     private List<Pair<Room, Calendar>> calendarPerRoom = new ArrayList<>();

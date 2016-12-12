@@ -18,9 +18,9 @@ import com.vaadin.ui.GridLayout;
  */
 public class MyReservationView extends CustomComponent implements View {
 
-    Button button;
-    GridLayout layout;
-    Menu menu;
+    private Button button;
+    private GridLayout layout;
+    private Menu menu;
 
     public MyReservationView(Navigator nav) {
 
