@@ -32,34 +32,31 @@
   general
   ------------------------------------------------------*/
 
-  .v-panel {
-   border: 0;
+  $textSize: 1em;
+  $smallTitleSize: 1.2em;
+  $titleSize: 1.4em;
+  $buttonTextSize: 1.5em;
+
+
+
+  .v-scrollable > .v-widget {
+    overflow: auto;
+    padding-bottom: 3em;
+    height: 100%;
   }
 
-  .v-caption {
+  .v-vertical > .v-slot, .v-vertical > .v-expand > .v-slot {
     text-align: center;
-    margin-top: 3em;
-    margin-bottom: 1em;
-
-    .v-captiontext {
-      font-size: 1.2em;
-      font-weight: bold;
-    }
+    margin-bottom: 3em;
   }
 
-  .v-widget {
+  .v-label {
     text-align: center;
-
-    .v-label {
-      margin-top: 9em;
-      font-size: 1.4em;
-    }
+    font-size: $titleSize;
   }
 
-  .v-scrollable {
-    background-color: white;
 
-  }
+
 
   /*------------------------------------------------------
   login
@@ -72,7 +69,9 @@
     margin-top: 2em;
   }
 
-
+  .rootLogin {
+    padding-top: 3em;
+  }
 
   /*------------------------------------------------------
   menu
@@ -87,7 +86,7 @@
     .menu-button {
       margin-left: 2em;
       margin-right: 2em;
-      font-size: 1.5em;
+      font-size: $buttonTextSize;
       font-weight: bold;
       border: 0em;
       outline: none;
@@ -105,51 +104,29 @@
     }
   }
 
-  /*------------------------------------------------
+  /*------------------------------------------------------
   calendar
-  ------------------------------------------------*/
+  ------------------------------------------------------*/
 
-  .v-calendar-header-day {
-    font-size: 0.9em;
+  .v-calendar-day-times-Hsized, .v-calendar-day-times-Hsized .v-datecellslot,
+  .v-calendar-day-times-Hsized .v-datecellslot-even, .v-calendar-header-day-Hsized {
+    width: 150px;
   }
 
-  //button forward and back
-  .v-calendar-header-week {
-    visibility: hidden;
-    width: 0;
-  }
+  .calendarWeek {
 
+    margin-right: $marginLayout;
 
-  .v-calendar-week-wrapper, .v-calendar-week-wrapper-Vsized {
-    width: 14em;
-  }
+    .v-datecellslot {
+      border-top: 1px solid #dfdfdf;
+      border-right: 1px solid #dfdfdf;
 
-  .v-calendar-day-times-Hsized, .v-calendar-day-times-Hsized .v-datecellslot, .v-calendar-day-times-Hsized .v-datecellslot-even {
-    width: 14em;
-  }
-
-  .v-calendar-weekly-longevents {
-    margin-left: 0;
-
-  }
-
-  .v-caption,  .v-caption-calendarDayView {
-    width: 14em;
-  }
-
-  .v-has-caption, .v-has-caption > .v-caption {
-    margin-right: -2em;
-  }
-
-  //custom calendar style
-  .calendarDayView {
-    .v-calendar-times {
-      visibility: hidden;
-      width: 0;
     }
 
-    .v-calendar-weekly-longevents {
-      margin-left: 0;
+    .v-datecellslot-even {
+      border-top: 1px solid #dfdfdf;
+      border-right: 1px solid #dfdfdf;
+
     }
 
   }
