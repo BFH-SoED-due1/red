@@ -20,7 +20,6 @@ public class Menu extends CustomComponent implements View {
 
 
     private Layout menu;
-    private Button overviewButton;
     private Button myReservationButton;
     private Button roomsButton;
     private Navigator navigator;
@@ -33,7 +32,6 @@ public class Menu extends CustomComponent implements View {
         ---------------------------------*/
         this.navigator = nav;
         this.menu = new HorizontalLayout();
-        this.overviewButton = new Button("overview");
         this.myReservationButton = new Button("my reservation");
         this.roomsButton = new Button("rooms");
 
@@ -41,35 +39,20 @@ public class Menu extends CustomComponent implements View {
         add to css
         -------------------------------*/
         menu.setPrimaryStyleName(CLASSNAME);
-        overviewButton.setPrimaryStyleName(CLASSNAME + "-button");
         myReservationButton.setPrimaryStyleName(CLASSNAME + "-button");
         roomsButton.setPrimaryStyleName(CLASSNAME + "-button");
 
         /*-------------------------------
         add Buttons to Layout
         --------------------------------*/
-        menu.addComponent(overviewButton);
         menu.addComponent(myReservationButton);
         menu.addComponent(roomsButton);
 
         /*------------------------------
         Event Handling Buttons
         ------------------------------*/
-        overviewButton.addClickListener(new Button.ClickListener() {
-            public void buttonClick(Button.ClickEvent event) {
-                navigator.navigateTo("overview");
-            }
-        });
-        myReservationButton.addClickListener(new Button.ClickListener() {
-            public void buttonClick(Button.ClickEvent event) {
-                navigator.navigateTo("my Reservation");
-            }
-        });
-        roomsButton.addClickListener(new Button.ClickListener() {
-            public void buttonClick(Button.ClickEvent event) {
-                navigator.navigateTo("rooms");
-            }
-        });
+        myReservationButton.addClickListener((Button.ClickListener) event -> navigator.navigateTo("my Reservation"));
+        roomsButton.addClickListener((Button.ClickListener) event -> navigator.navigateTo("rooms"));
 
     }
 
