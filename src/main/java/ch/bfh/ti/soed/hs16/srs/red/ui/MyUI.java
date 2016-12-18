@@ -8,7 +8,6 @@ package ch.bfh.ti.soed.hs16.srs.red.ui;
 import ch.bfh.ti.soed.hs16.srs.red.ui.views.LoginView;
 import ch.bfh.ti.soed.hs16.srs.red.ui.views.MyReservationView;
 import ch.bfh.ti.soed.hs16.srs.red.ui.views.RoomsView;
-import ch.bfh.ti.soed.hs16.srs.red.ui.views.StartView;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.navigator.Navigator;
@@ -37,7 +36,6 @@ public class MyUI extends UI {
         this.navigator = new Navigator(this, this);
 
         navigator.addView("", new LoginView(navigator));
-        navigator.addView("overview", new StartView(navigator));
         navigator.addView("my Reservation", new MyReservationView(navigator));
         navigator.addView("rooms", new RoomsView(navigator));
 
