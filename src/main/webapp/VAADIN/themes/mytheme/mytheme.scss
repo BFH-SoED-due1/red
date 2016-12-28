@@ -57,7 +57,6 @@
 
 
 
-
   /*------------------------------------------------------
   login
   ------------------------------------------------------*/
@@ -72,6 +71,7 @@
   .rootLogin {
     padding-top: 3em;
   }
+
 
   /*------------------------------------------------------
   menu
@@ -110,7 +110,7 @@
 
   .v-calendar-day-times-Hsized, .v-calendar-day-times-Hsized .v-datecellslot,
   .v-calendar-day-times-Hsized .v-datecellslot-even, .v-calendar-header-day-Hsized {
-    width: 150px;
+    width: 170px;
   }
 
   .calendarWeek {
@@ -128,7 +128,54 @@
       border-right: 1px solid #dfdfdf;
 
     }
+  }
+
+  .v-calendar-week-wrapper-Vsized {
+    height: 60em;
+  }
+
+  .v-calendar-datecell {
+    width: 171px !important;
+  }
+
+
+  /*------------------------------------------------------
+  subWindow
+  ------------------------------------------------------*/
+  $widthSubWindow: 36em;
+
+  .subWindow {
+    width: $widthSubWindow !important;
+    padding-top: 4em;
+
+    .v-slot {
+      text-align: center;
+      padding-right: 1em;
+
+      .v-button {
+        width: 5em;
+        margin-right: 2.5em;
+      }
+    }
+
+    .v-textarea {
+      width: $widthSubWindow - 6;
+    }
+  }
+
+
+  .subWindow-horizontalContainer {
+
+    width: 100%;
+    text-align: right;
+    padding-right: 7em;
+
+    .v-label {
+      font-size: $smallTitleSize;
+    }
 
   }
+
+
 
 }
