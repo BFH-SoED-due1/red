@@ -19,7 +19,7 @@ import com.vaadin.ui.VerticalLayout;
 /**
  * Created by tambur on 04.12.2016.
  */
-public class LoginView extends CustomComponent implements View {
+public class LoginView extends CustomComponent implements View, Button.ClickListener {
 
 
     private VerticalLayout vertical;
@@ -28,15 +28,18 @@ public class LoginView extends CustomComponent implements View {
     private Button loginButton;
     private Label error;
 
+    private Navigator nav;
+
     public LoginView(Navigator nav) {
 
         /*---------------------------------
         initalize Objects
         ---------------------------------*/
+        this.nav = nav;
         this.vertical = new VerticalLayout();
         this.loginName = new TextField("username");
         this.passwordField = new PasswordField("password");
-        this.loginButton = new Button("Login");
+        this.loginButton = new Button("Login", this);
 
         //this.userController = new UserController();
         //TODO: handle with user controller
@@ -57,15 +60,25 @@ public class LoginView extends CustomComponent implements View {
         setCompositionRoot(vertical);
 
 
-        loginButton.addClickListener((Button.ClickListener) clickEvent -> {
-            //TODO: handle Login
-            nav.navigateTo("my Reservation");
-        });
+
     }
+
+
+    @Override
+    public void buttonClick(Button.ClickEvent clickEvent) {
+
+        // Store the current user in the service session
+        getSession().setAttribute("username", loginName.getValue());
+        // navigate to my reservation view
+        nav.navigateTo("my Reservation");
+    }
+
 
 
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) {
 
     }
+
+
 }
