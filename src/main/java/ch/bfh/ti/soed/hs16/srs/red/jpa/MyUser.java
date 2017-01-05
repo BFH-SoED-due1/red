@@ -81,10 +81,6 @@ public class MyUser implements User {
         this.name=name;
     }
 
-    @Override
-    public void setID(int id) {
-        this.id = id;
-    }
 
     @Override
     public void setRole(int role) {

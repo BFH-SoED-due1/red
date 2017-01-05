@@ -21,12 +21,6 @@ public interface Reservation {
      */
     int getId();
 
-    /**
-     * Sets id.
-     *
-     * @param id the id of the Reservation
-     */
-    void setId(int id);
 
     /**
      * Gets owner.

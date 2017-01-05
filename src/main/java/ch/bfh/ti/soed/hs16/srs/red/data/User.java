@@ -39,12 +39,6 @@ public interface User {
      */
     void setName(String name);
 
-    /**
-     * Sets id.
-     *
-     * @param id the id to be set
-     */
-    void setID(int id);
 
     /**
      * Sets role.

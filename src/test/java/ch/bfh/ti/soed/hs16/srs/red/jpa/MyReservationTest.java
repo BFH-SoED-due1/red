@@ -47,6 +47,9 @@ public class MyReservationTest {
         Room room = roomController.findRoom(1);
         reservationController.createReservation(new TimeSlot(new Date(1000*1000*60), new Date(2000*1000*60)), room, user);
         assertFalse(reservationController.getAllReservations().isEmpty());
+        reservationController.clearAllReservations();
+        reservationController.createReservation(1,new TimeSlot(new Date(1000*1000*60), new Date(2000*1000*60)), room, user);
+        assertFalse(reservationController.getAllReservations().isEmpty());
     }
 
     /**
@@ -57,21 +60,19 @@ public class MyReservationTest {
         UserController userController = new UserController(null);
         ReservationController reservationController = new ReservationController();
         RoomController roomController = new RoomController();
-        reservationController.clearAllReservations();
-        userController.clearAllUsers();
-        roomController.clearAllRooms();
-        userController.makeUser("user", 1, 1);
-        User user = userController.findUser(1);
-        roomController.addRoom(new MyRoom(1, "room", "building", 12));
-        Room room = roomController.findRoom(1);
-        reservationController.createReservation(1, new TimeSlot(new Date(1000*1000*60), new Date(2000*1000*60)), room, user);
-        Reservation res = reservationController.findReservation(1);
+        userController.makeUser("user", 7, 1);
+        User user = userController.findUser(7);
+        roomController.addRoom(new MyRoom(11, "room", "building", 12));
+        Room room = roomController.findRoom(11);
+        reservationController.createReservation(8, new TimeSlot(new Date(1000*1000*6), new Date(2000*1000*20)), room, user);
+        Reservation res = reservationController.findReservation(8);
         reservationController.cancelReservation(res);
-        assertTrue(reservationController.getAllReservations().isEmpty());
+        assertTrue(!reservationController.getAllReservations().contains(res));
+        assertTrue(reservationController.findReservation(res.getId())==null);
     }
 
     /**
-     * Test if reservation knows owner.
+     * Test if reservation knows owner, and notices if changed through set.
      */
     @Test
     public void testReservationKnowsOwner() {
@@ -88,6 +89,12 @@ public class MyReservationTest {
         reservationController.createReservation(1, new TimeSlot(new Date(1000*1000*60), new Date(2000*1000*60)), room, user);
         Reservation res = reservationController.findReservation(1);
         assertEquals(res.getOwner(), user);
+        userController.makeUser("john", 2, 1);
+        User john = userController.findUser(2);
+        reservationController.findReservation(1).setOwner(john);
+        res = reservationController.findReservation(1);
+        assertEquals(res.getOwner(), john);
+
     }
 
 
@@ -146,5 +153,30 @@ public class MyReservationTest {
         assertTrue(openList.size()==1&&openList.contains(room3));
     }
 
+    /**
+     * test setters
+     */
+    @Test
+    public void testSetters(){
+        UserController userController = new UserController(null);
+        ReservationController reservationController = new ReservationController();
+        RoomController roomController = new RoomController();
+        reservationController.clearAllReservations();
+        userController.clearAllUsers();
+        roomController.clearAllRooms();
+        userController.makeUser("user", 1, 1);
+        User user = userController.findUser(1);
+        roomController.addRoom(new MyRoom(1, "room", "building", 12));
+        Room room = roomController.findRoom(1);
+        reservationController.createReservation(1, new TimeSlot(new Date(1000*60*60*24*10), new Date(1000*60*60*24*15)), room, user);
+        Reservation reservation1 = reservationController.findReservation(1);
+        roomController.addRoom(new MyRoom(2, "a12", "maze", 12));
+        room = roomController.findRoom(2);
+        reservation1.setRoom(room);
+        TimeSlot timeSlot = new TimeSlot(new Date(1000*60*60*24*2), new Date(1000*60*60*24*3));
+        reservation1.setTimeSlot(timeSlot);
+        assertEquals(reservation1.getRoom(),room);
+        assertEquals(reservation1.getTimeSlot(),timeSlot);
+    }
 
 }

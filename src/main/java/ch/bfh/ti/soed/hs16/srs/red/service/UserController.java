@@ -88,6 +88,18 @@ public class UserController {
         dataAccess.makeUser(name, id, role);
 
     }
+    /**
+     * makes new user
+     *
+     * @param name name
+     * @param role admin, user or poweruser
+     */
+    public void makeUser(String name, int role) {
+        DataAccess dataAccess = DataAccess.getInstance();
+
+        dataAccess.makeUser(name, role);
+
+    }
 
     /**
      * Gets all user.
@@ -105,9 +117,10 @@ public class UserController {
     public void clearAllUsers() {
         DataAccess dataAccess = DataAccess.getInstance();
         List<User> users = dataAccess.findAllUsers();
+        if(!users.isEmpty()){
         for (User user : users) {
             removeUser(user);
-        }
+        }}
     }
 
 

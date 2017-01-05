@@ -17,7 +17,7 @@ import java.util.Date;
 @Table
 public class TimeSlot {
     @Id
-    @GeneratedValue(strategy =GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @Temporal(TemporalType.DATE)
     private Date startTime;
@@ -46,7 +46,7 @@ public class TimeSlot {
     /**
      * Instantiates a new Time slot.
      */
-    public TimeSlot(){
+    public TimeSlot() {
 
     }
 
@@ -64,7 +64,7 @@ public class TimeSlot {
      *
      * @param start the startTime (Date) to be set
      */
-    public void setStart(Date start){
+    public void setStart(Date start) {
         this.startTime = start;
     }
 
@@ -82,7 +82,7 @@ public class TimeSlot {
      *
      * @param end the endTime to be set
      */
-    public void setEnd(Date end){
+    public void setEnd(Date end) {
         this.endTime = end;
     }
 
@@ -93,15 +93,6 @@ public class TimeSlot {
      */
     public int getId() {
         return id;
-    }
-
-    /**
-     * Set id.
-     *
-     * @param id the id to be set
-     */
-    public void setId(int id){
-        this.id = id;
     }
 
 }

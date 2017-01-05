@@ -168,9 +168,10 @@ public class ReservationController {
     public void clearAllReservations() {
         DataAccess dataAccess = DataAccess.getInstance();
         List<Reservation> reservations = dataAccess.findAllReservations();
+        if(!reservations.isEmpty()){
         for (Reservation reservation : reservations) {
             cancelReservation(reservation);
-        }
+        }}
     }
 
 

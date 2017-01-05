@@ -20,8 +20,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * The My user test.
@@ -71,7 +70,7 @@ public class MyUserTest {
         reservations.add(res1);
         roomController.addRoom(new MyRoom(2, "209", "Nord", 1297));
         Room room2 = roomController.findRoom(2);
-        reservationController.createReservation(2, new TimeSlot(new Date(75863), new Date(75882)), room2, user);
+        reservationController.createReservation(2, new TimeSlot(new Date(758963), new Date(75882)), room2, user);
         Reservation res2 = reservationController.findReservation(2);
         reservations.add(res2);
         assertTrue(reservationController.findReservationsOfUser(user).containsAll(reservations));
@@ -100,6 +99,33 @@ public class MyUserTest {
         reservations = reservationController.findReservationsOfUser(user);
         assertFalse(reservations.contains(res));
 
+    }
+
+    /**
+     * test if constructor works
+     */
+
+    @Test
+    public void testCreateUser(){
+        UserController userController = new UserController(null);
+        userController.makeUser("john",2);
+        assertFalse(userController.getAllUser().isEmpty());
+        userController.makeUser("jane",2,1);
+        User user = userController.findUser(2);
+        assertTrue(userController.getAllUser().contains(user));
+    }
+
+    /**
+     * test the setters
+     */
+
+    @Test
+    public void testSetters(){
+        MyUser user = new MyUser("Cat",4);
+        user.setName("doe");
+        user.setRole(2);
+        assertEquals(2,user.getRole());
+        assertEquals("doe",user.getName());
     }
 
 }
