@@ -38,7 +38,7 @@ public class RoomCreatorTest {
      */
     @Test
     public void testCreateRoomsFromCSVCreatesRooms() throws IOException {
-        String name1 = "301"; //From the excel file needed for this test
+        String name1 = "303"; //From the excel file needed for this test
         RoomCreator rc = new RoomCreator();
         Set<Room> rooms = rc.createRoomsFromCSV("roomTest.csv");
         assertEquals(rooms.iterator().next().getName(),name1);

@@ -12968,32 +12968,20 @@ div.v-layout.v-horizontal.v-widget {
 	overflow: hidden;
 }
 
-.mytheme .v-panel {
-	border: 0;
+.mytheme .v-scrollable > .v-widget {
+	overflow: auto;
+	padding-bottom: 3em;
+	height: 100%;
 }
 
-.mytheme .v-caption {
+.mytheme .v-vertical > .v-slot, .mytheme .v-vertical > .v-expand > .v-slot {
 	text-align: center;
-	margin-top: 3em;
-	margin-bottom: 1em;
+	margin-bottom: 3em;
 }
 
-.mytheme .v-caption .v-captiontext {
-	font-size: 1.2em;
-	font-weight: bold;
-}
-
-.mytheme .v-widget {
+.mytheme .v-label {
 	text-align: center;
-}
-
-.mytheme .v-widget .v-label {
-	margin-top: 9em;
 	font-size: 1.4em;
-}
-
-.mytheme .v-scrollable {
-	background-color: white;
 }
 
 .mytheme .buttonLogin {
@@ -13002,6 +12990,10 @@ div.v-layout.v-horizontal.v-widget {
 
 .mytheme .labelLogin {
 	margin-top: 2em;
+}
+
+.mytheme .rootLogin {
+	padding-top: 3em;
 }
 
 .mytheme .menu {
@@ -13028,40 +13020,57 @@ div.v-layout.v-horizontal.v-widget {
 	color: #2d55cd;
 }
 
-.mytheme .v-calendar-header-day {
-	font-size: 0.9em;
+.mytheme .v-calendar-day-times-Hsized, .mytheme .v-calendar-day-times-Hsized .v-datecellslot, .mytheme .v-calendar-day-times-Hsized .v-datecellslot-even, .mytheme .v-calendar-header-day-Hsized {
+	width: 170px;
 }
 
-.mytheme .v-calendar-header-week {
-	visibility: hidden;
-	width: 0;
+.mytheme .calendarWeek {
+	margin-right: $marginLayout;
 }
 
-.mytheme .v-calendar-week-wrapper, .mytheme .v-calendar-week-wrapper-Vsized {
-	width: 14em;
+.mytheme .calendarWeek .v-datecellslot {
+	border-top: 1px solid #dfdfdf;
+	border-right: 1px solid #dfdfdf;
 }
 
-.mytheme .v-calendar-day-times-Hsized, .mytheme .v-calendar-day-times-Hsized .v-datecellslot, .mytheme .v-calendar-day-times-Hsized .v-datecellslot-even {
-	width: 14em;
+.mytheme .calendarWeek .v-datecellslot-even {
+	border-top: 1px solid #dfdfdf;
+	border-right: 1px solid #dfdfdf;
 }
 
-.mytheme .v-calendar-weekly-longevents {
-	margin-left: 0;
+.mytheme .v-calendar-week-wrapper-Vsized {
+	height: 60em;
 }
 
-.mytheme .v-caption, .mytheme .v-caption-calendarDayView {
-	width: 14em;
+.mytheme .v-calendar-datecell {
+	width: 171px !important;
 }
 
-.mytheme .v-has-caption, .mytheme .v-has-caption > .v-caption {
-	margin-right: -2em;
+.mytheme .subWindow {
+	width: 36em !important;
+	padding-top: 4em;
 }
 
-.mytheme .calendarDayView .v-calendar-times {
-	visibility: hidden;
-	width: 0;
+.mytheme .subWindow .v-slot {
+	text-align: center;
+	padding-right: 1em;
 }
 
-.mytheme .calendarDayView .v-calendar-weekly-longevents {
-	margin-left: 0;
+.mytheme .subWindow .v-slot .v-button {
+	width: 5em;
+	margin-right: 2.5em;
+}
+
+.mytheme .subWindow .v-textarea {
+	width: 30em;
+}
+
+.mytheme .subWindow-horizontalContainer {
+	width: 100%;
+	text-align: right;
+	padding-right: 7em;
+}
+
+.mytheme .subWindow-horizontalContainer .v-label {
+	font-size: 1.2em;
 }
