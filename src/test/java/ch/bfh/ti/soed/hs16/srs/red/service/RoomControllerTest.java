@@ -7,14 +7,16 @@ package ch.bfh.ti.soed.hs16.srs.red.service;
 
 import ch.bfh.ti.soed.hs16.srs.red.data.Room;
 import ch.bfh.ti.soed.hs16.srs.red.jpa.MyRoom;
-import java.util.ArrayList;
-import java.util.List;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+
 /**
- * Created by scarface on 10.11.2016.
+ * Test of RoomController
  */
 public class RoomControllerTest {
 
@@ -129,7 +131,7 @@ public class RoomControllerTest {
 
 
     /**
-     * Test add Rooms when list isn't initialized
+     * Test add Rooms to empty list (in DB)
      */
     @Test
     public void testAddRoomWithListNull() {

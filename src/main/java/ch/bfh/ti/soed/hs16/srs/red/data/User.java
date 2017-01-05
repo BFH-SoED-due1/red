@@ -7,15 +7,50 @@ package ch.bfh.ti.soed.hs16.srs.red.data;
 
 
 /**
- * @author Martin
+ * The interface User.
  */
 public interface User {
 
+    /**
+     * Gets name.
+     *
+     * @return the name
+     */
     String getName();
+
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
     int getID();
+
+    /**
+     * Gets role.
+     *
+     * @return the role
+     */
     int getRole();
+
+    /**
+     * Sets name.
+     *
+     * @param name the name to be set
+     */
     void setName(String name);
+
+    /**
+     * Sets id.
+     *
+     * @param id the id to be set
+     */
     void setID(int id);
+
+    /**
+     * Sets role.
+     *
+     * @param role the role to be assigned
+     */
     void setRole(int role);
 
 }

@@ -5,15 +5,14 @@
  */
 package ch.bfh.ti.soed.hs16.srs.red.service;
 
-import ch.bfh.ti.soed.hs16.srs.red.data.DataAccess;
-import ch.bfh.ti.soed.hs16.srs.red.data.Reservation;
-import ch.bfh.ti.soed.hs16.srs.red.data.Room;
-import ch.bfh.ti.soed.hs16.srs.red.data.TimeSlot;
-import ch.bfh.ti.soed.hs16.srs.red.data.User;
+import ch.bfh.ti.soed.hs16.srs.red.data.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * The type Reservation controller.
+ *
  * @author Marvin
  */
 public class ReservationController {
@@ -37,6 +36,15 @@ public class ReservationController {
         return null;
     }
 
+    /**
+     * Create reservation reservation.
+     *
+     * @param id       the id of reservation
+     * @param timeslot the timeslot allocated
+     * @param room     the room being reserved
+     * @param user     the user making the reservation
+     * @return the reservation made
+     */
     public Reservation createReservation(int id, TimeSlot timeslot, Room room, User user) {
         DataAccess dataAccess = DataAccess.getInstance();
 
@@ -62,19 +70,31 @@ public class ReservationController {
 
     }
 
+    /**
+     * Find reservation.
+     *
+     * @param id the id of searched reservation
+     * @return the reservation belonging to id
+     */
     public Reservation findReservation(int id) {
           DataAccess dataAccess = DataAccess.getInstance();
           return dataAccess.findReservation(id);
     }
 
 
+    /**
+     * Find reservations of user list.
+     *
+     * @param owner the user owning the reservations
+     * @return the list of reservations belonging to owner
+     */
     public List<Reservation> findReservationsOfUser(User owner) {
           DataAccess dataAccess = DataAccess.getInstance();
           return dataAccess.findAllReservationsOfUser(owner);
     }
 
     /**
-     * Removes all reservations from the list
+     * Removes all reservations from the DB
      */
     public static void ClearAllReservations() {
         DataAccess dataAccess = DataAccess.getInstance();
@@ -132,11 +152,19 @@ public class ReservationController {
         return true;
     }
 
+    /**
+     * Gets all reservations.
+     *
+     * @return the list of all reservations
+     */
     public List<Reservation> getAllReservations() {
         DataAccess dataAccess = DataAccess.getInstance();
         return dataAccess.findAllReservations();
     }
 
+    /**
+     * Clear all reservations.
+     */
     public void clearAllReservations() {
         DataAccess dataAccess = DataAccess.getInstance();
         List<Reservation> reservations = dataAccess.findAllReservations();

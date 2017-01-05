@@ -7,62 +7,27 @@ package ch.bfh.ti.soed.hs16.srs.red.service;
 
 import ch.bfh.ti.soed.hs16.srs.red.data.User;
 import ch.bfh.ti.soed.hs16.srs.red.jpa.MyUser;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static org.junit.Assert.assertTrue;
+
 /**
+ * The type User controller test.
  *
  * @author Martin
  */
 public class UserControllerTest {
 
-
-
-    @Test
-    public void testLoginExistingUser() {
-        String username="user1";
-        String password="hunter2";
-        User u;
-
-         Map<String, String> dbLogin = new HashMap<>();
-         dbLogin.put(username, password);
-        UserController uc = new UserController(dbLogin);
-        try {
-            u = uc.logIn(username, password);
-            assertEquals(u.getName(), username);
-        } catch (Exception ex) {
-            Logger.getLogger(UserControllerTest.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Incorrect Username or Password");
-        }
-
-
-    }
-
-        @Test(expected = Exception.class)
-    public void testLoginNonExistingUser() throws Exception {
-            String username="user1";
-            String password="hunter2";
-            User u;
-
-            Map<String, String> dbLogin = new HashMap<>();
-            dbLogin.put(username, password);
-            UserController uc = new UserController(dbLogin);
-
-            u = uc.logIn("notuser", password);
-
-            System.out.println("Incorrect Username or Password");
-        }
-
-
-
-
-
-@Test(expected = Exception.class)
+    /**
+     * Test login with wrong password.
+     *
+     * @throws Exception the wrong password or username exception
+     */
+    @Test(expected = Exception.class)
     public void testLoginWrongPassword() throws Exception {
     String username="user1";
     String password="hunter2";
@@ -74,10 +39,12 @@ public class UserControllerTest {
 
             u = uc.logIn(username, "123test");
 
-            System.out.println("Incorrect Username or Password");
         }
 
-        @Test
+    /**
+     * Test make user.
+     */
+    @Test
     public void testMakeUser(){
         UserController userController = new UserController(null);
         userController.clearAllUsers();
@@ -88,7 +55,10 @@ public class UserControllerTest {
 
         }
 
-        @Test
+    /**
+     * Test remove user.
+     */
+    @Test
     public void testRemoveUser(){
             UserController userController = new UserController(null);
             userController.clearAllUsers();
@@ -98,5 +68,18 @@ public class UserControllerTest {
             assertTrue(!userController.getAllUser().contains(franz));
         }
 
+    /**
+     * Tests first if clearAllUsers really clears all and then if getAllUsers returns the newly added user(s)
+     */
+    @Test
+    public void testClearAllUsersAndGetAll(){
+        UserController userController = new UserController(null);
+        userController.clearAllUsers();
+        assertTrue(userController.getAllUser().isEmpty());
+        List<User> list = userController.getAllUser();
+        userController.makeUser("Franz",3,3);
+        list.add(userController.findUser(3));
+        list.forEach(user -> assertTrue(userController.getAllUser().contains(user)));
 
+        }
     }

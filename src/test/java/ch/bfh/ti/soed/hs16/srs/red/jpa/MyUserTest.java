@@ -13,19 +13,26 @@ import ch.bfh.ti.soed.hs16.srs.red.data.User;
 import ch.bfh.ti.soed.hs16.srs.red.service.ReservationController;
 import ch.bfh.ti.soed.hs16.srs.red.service.RoomController;
 import ch.bfh.ti.soed.hs16.srs.red.service.UserController;
+import org.junit.Test;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import org.junit.Test;
 
 /**
- * @author Martin
+ * The My user test.
+ *
+ *
  */
 public class MyUserTest {
 
+    /**
+     * Test make reservations adds reservation to DB.
+     */
     @Test
     public void testMakeReservationsAddsReservationToReservations(){
         UserController userController = new UserController(null);
@@ -42,6 +49,10 @@ public class MyUserTest {
         Reservation res = reservationController.findReservation(1);
         assertTrue(reservationController.findReservationsOfUser(user).contains(res));
     }
+
+    /**
+     * Test get reservations gets reservations.
+     */
     @Test
     public void testGetReservationsGetsReservations() {
         UserController userController = new UserController(null);
@@ -67,6 +78,9 @@ public class MyUserTest {
 
     }
 
+    /**
+     * Test if canceled reservations vanish.
+     */
     @Test
     public void testCanceledReservationsVanish() {
         UserController userController = new UserController(null);

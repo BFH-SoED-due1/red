@@ -7,18 +7,34 @@ package ch.bfh.ti.soed.hs16.srs.red.service;
 
 import ch.bfh.ti.soed.hs16.srs.red.data.DataAccess;
 import ch.bfh.ti.soed.hs16.srs.red.data.User;
+
 import java.util.List;
 import java.util.Map;
 
 
-
+/**
+ * The User controller.
+ */
 public class UserController {
-    private Map<String, String> pws;//sould be in DB before Deploy
+    private Map<String, String> pws;//ToDO sould be in DB before Deploy
 
+    /**
+     * Instantiates a new User controller.
+     *
+     * @param pws the pws
+     */
     public UserController(Map<String, String> pws) {
         this.pws = pws;
     }
 
+    /**
+     * Log in user.
+     *
+     * @param name     the name
+     * @param passWord the password
+     * @return the user
+     * @throws Exception the exception
+     */
     public User logIn(String name, String passWord) throws Exception {  // Receives the entered Username and a has of the password from the UI, checks if user is valid and creates user object.
         //MyUser u;
         DataAccess dataAccess = DataAccess.getInstance();
@@ -28,18 +44,17 @@ public class UserController {
                 return u;
             }
         }
-        Exception e = new Exception();
+        Exception e = new Exception("no such username or password");
         throw e;
-           /* if(dataAccess.findAllUsers().get()==passWord) {
-                u = new MyUser(name, dbID.get(name), dbRole.get(name));
-            }else{
-                Exception e = new Exception();
-                throw e;
-            }
 
-            return u;*/
     }
 
+    /**
+     * removes single user
+     *
+     * @param user the user
+     * @return int
+     */
     public int removeUser(User user) {
         DataAccess dataAccess = DataAccess.getInstance();
         if (dataAccess.findAllUsers().contains(user) && user != null) {
@@ -49,11 +64,24 @@ public class UserController {
         return -1;
     }
 
+    /**
+     * finds user, depending on his id
+     *
+     * @param id unique id
+     * @return the user
+     */
     public User findUser(int id) {
           DataAccess dataAccess = DataAccess.getInstance();
           return dataAccess.findUser(id);
     }
 
+    /**
+     * makes new user
+     *
+     * @param name name
+     * @param id   unique id
+     * @param role admin, user or poweruser
+     */
     public void makeUser(String name, int id, int role) {
         DataAccess dataAccess = DataAccess.getInstance();
 
@@ -61,11 +89,19 @@ public class UserController {
 
     }
 
+    /**
+     * Gets all user.
+     *
+     * @return List with all users
+     */
     public List<User> getAllUser() {
         DataAccess dataAccess = DataAccess.getInstance();
         return dataAccess.findAllUsers();
     }
 
+    /**
+     * deletes all users from DB
+     */
     public void clearAllUsers() {
         DataAccess dataAccess = DataAccess.getInstance();
         List<User> users = dataAccess.findAllUsers();

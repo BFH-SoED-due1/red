@@ -6,18 +6,15 @@
 package ch.bfh.ti.soed.hs16.srs.red.jpa;
 
 import ch.bfh.ti.soed.hs16.srs.red.data.User;
+
+import javax.persistence.*;
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 
 /**
- * @author Martin
+ *  My user class, imlementaition of user.
+ *
+ *
  */
 @Entity
 @Table
@@ -32,15 +29,33 @@ public class MyUser implements User {
     @OneToMany(mappedBy="owner",cascade = CascadeType.ALL)
     private List<MyReservation> reservations;
 
+    /**
+     * Instantiates a new My user.
+     *
+     * @param name the name of user
+     * @param id   the id of user
+     * @param role the role of user, eg admin etc
+     */
     public MyUser(String name, int id, int role) {
         this.name = name;
         this.id = id;
         this.role = role;
     }
+
+    /**
+     * Instantiates a new My user.
+     *
+     * @param name the name of user
+     * @param role the role of user
+     */
     public MyUser(String name,int role) {
         this.name = name;
         this.role = role;
     }
+
+    /**
+     * Instantiates a new My user.
+     */
     public MyUser() {
 
     }

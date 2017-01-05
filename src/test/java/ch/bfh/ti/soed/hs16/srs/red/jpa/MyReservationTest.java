@@ -13,26 +13,26 @@ import ch.bfh.ti.soed.hs16.srs.red.data.User;
 import ch.bfh.ti.soed.hs16.srs.red.service.ReservationController;
 import ch.bfh.ti.soed.hs16.srs.red.service.RoomController;
 import ch.bfh.ti.soed.hs16.srs.red.service.UserController;
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 
 /**
- * @author Martin
+ * MyReservation test.
+ *
+ *
  */
 public class MyReservationTest {
 
 
     /**
-     * Test of cancelReservation method, of class Reservation.
+     * Test of makeReservation
      */
-
     @Test
     public void testMakeReservation() {
         UserController userController = new UserController(null);
@@ -49,6 +49,9 @@ public class MyReservationTest {
         assertFalse(reservationController.getAllReservations().isEmpty());
     }
 
+    /**
+     * Test cancel reservation.
+     */
     @Test
     public void testCancelReservation() {
         UserController userController = new UserController(null);
@@ -67,6 +70,9 @@ public class MyReservationTest {
         assertTrue(reservationController.getAllReservations().isEmpty());
     }
 
+    /**
+     * Test if reservation knows owner.
+     */
     @Test
     public void testReservationKnowsOwner() {
         UserController userController = new UserController(null);
@@ -85,6 +91,9 @@ public class MyReservationTest {
     }
 
 
+    /**
+     * Test conflicting reservations
+     */
     @Test
     public void testReservationConflict() {
         UserController userController = new UserController(null);
@@ -104,6 +113,9 @@ public class MyReservationTest {
         assertNull(reservation2);
     }
 
+    /**
+     * Test adding multiple rooms that are equal
+     */
     @Test
     public void testReservationRoomList() {
         UserController userController = new UserController(null);

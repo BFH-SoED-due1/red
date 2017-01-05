@@ -9,18 +9,14 @@ import ch.bfh.ti.soed.hs16.srs.red.data.Reservation;
 import ch.bfh.ti.soed.hs16.srs.red.data.Room;
 import ch.bfh.ti.soed.hs16.srs.red.data.TimeSlot;
 import ch.bfh.ti.soed.hs16.srs.red.data.User;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+
+import javax.persistence.*;
 
 
 /**
- * @author Martin
+ * The My reservation class, implements Reservation.
+ *
+ *
  */
 @Entity
 @Table
@@ -38,6 +34,14 @@ public class MyReservation implements Reservation {
     @ManyToOne()
     private MyRoom room;
 
+    /**
+     * Instantiates a new My reservation.
+     *
+     * @param id       the id of the reservation
+     * @param user     the user making/owning the reservation
+     * @param room     the room being reserved
+     * @param timeslot the timeslot of the reservation
+     */
     public MyReservation(int id,User user, Room room, TimeSlot timeslot) {
         this.id = id;
         this.owner = (MyUser) user;
@@ -47,12 +51,23 @@ public class MyReservation implements Reservation {
     }
 
 
+    /**
+     * Instantiates a new My reservation.
+     *
+     * @param user     the user making/owning the reservation
+     * @param room     the room being reserved
+     * @param timeslot the timeslot of the reservation
+     */
     public MyReservation(User user, Room room, TimeSlot timeslot) {
         this.owner = (MyUser) user;
         this.room = (MyRoom) room;
         this.timeslot = timeslot;
 
     }
+
+    /**
+     * Instantiates a new My reservation.
+     */
     public MyReservation() {
 
     }

@@ -7,10 +7,13 @@ package ch.bfh.ti.soed.hs16.srs.red.service;
 
 import ch.bfh.ti.soed.hs16.srs.red.data.DataAccess;
 import ch.bfh.ti.soed.hs16.srs.red.data.Room;
+
 import java.util.List;
 
 
 /**
+ * The type Room controller.
+ *
  * @author tambur
  */
 public class RoomController {
@@ -31,20 +34,6 @@ public class RoomController {
         dataAccess.makeRoom(room.getId(), room.getName(), room.getBuilding(), room.getSize());//return 1 => success
         return 1;
 
-        /*if (roomOverview == null) {
-            this.roomOverview = new ArrayList<>();
-        }
-
-        if (room != null) {
-
-            for (Room r : roomOverview)
-                if (r.getName().equals(room.getName())) return -1; // return -1 => room already exist or null
-
-            roomOverview.add(room);
-            return 1; //return 1 => success
-        }
-
-        return -1; //nothing happens return -1 => room already exist or null*/
     }
 
 
@@ -63,16 +52,30 @@ public class RoomController {
 
     }
 
+    /**
+     * Find room.
+     *
+     * @param id the id to find
+     * @return the room belonging to ID
+     */
     public Room findRoom(int id) {
           DataAccess dataAccess = DataAccess.getInstance();
           return dataAccess.findRoom(id);
     }
 
+    /**
+     * Gets all rooms.
+     *
+     * @return list of all rooms in DB
+     */
     public List<Room> getAllRooms() {
         DataAccess dataAccess = DataAccess.getInstance();
         return dataAccess.findAllRooms();
     }
 
+    /**
+     * Clear all rooms.
+     */
     public void clearAllRooms() {
         DataAccess dataAccess = DataAccess.getInstance();
         List<Room> rooms = dataAccess.findAllRooms();

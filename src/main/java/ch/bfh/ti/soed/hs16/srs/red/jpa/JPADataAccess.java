@@ -5,20 +5,24 @@
  */
 package ch.bfh.ti.soed.hs16.srs.red.jpa;
 
-import ch.bfh.ti.soed.hs16.srs.red.data.DataAccess;
-import ch.bfh.ti.soed.hs16.srs.red.data.Reservation;
-import ch.bfh.ti.soed.hs16.srs.red.data.Room;
-import ch.bfh.ti.soed.hs16.srs.red.data.TimeSlot;
-import ch.bfh.ti.soed.hs16.srs.red.data.User;
-import java.util.List;
+import ch.bfh.ti.soed.hs16.srs.red.data.*;
+
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import java.util.List;
 
+/**
+ * Jpa data access, gives acess to the DB
+ */
 public class JPADataAccess extends DataAccess {
+
     public static final String PERSISTENCE_UNIT = "srs-pu";
     private EntityManager entityManager;
 
+    /**
+     * Instantiates a new Jpa data access.
+     */
     public JPADataAccess() {
         this.entityManager = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT).createEntityManager();
     }

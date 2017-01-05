@@ -6,17 +6,23 @@
 package ch.bfh.ti.soed.hs16.srs.red.service;
 
 import ch.bfh.ti.soed.hs16.srs.red.data.Room;
-import java.io.IOException;
-import java.util.Set;
-import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
+import java.io.IOException;
+import java.util.Set;
+
+import static org.junit.Assert.assertEquals;
+
 /**
+ * The type Room creator test.
  *
- * @author Martin
+ *
  */
 public class RoomCreatorTest {
 
+    /**
+     * Test create room creates room.
+     */
     @Test
     public void testCreateRoomCreatesRoom() {
         String name = "301";
@@ -25,6 +31,11 @@ public class RoomCreatorTest {
         assertEquals(room.getName(),name);
     }
 
+    /**
+     * Test create rooms from csv creates rooms.
+     *
+     * @throws IOException the io exception if file not found or no rights
+     */
     @Test
     public void testCreateRoomsFromCSVCreatesRooms() throws IOException {
         String name1 = "301"; //From the excel file needed for this test
