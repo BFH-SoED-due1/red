@@ -29,57 +29,57 @@ public class UserControllerTest {
      */
     @Test(expected = Exception.class)
     public void testLoginWrongPassword() throws Exception {
-    String username="user1";
-    String password="hunter2";
-    User u;
+        String username = "user1";
+        String password = "hunter2";
+        User u;
 
-    Map<String, String> dbLogin = new HashMap<>();
-    dbLogin.put(username, password);
-    UserController uc = new UserController(dbLogin);
+        Map<String, String> dbLogin = new HashMap<>();
+        dbLogin.put(username, password);
+        UserController uc = new UserController(dbLogin);
 
-            u = uc.logIn(username, "123test");
+        u = uc.logIn(username, "123test");
 
-        }
+    }
 
     /**
      * Test make user.
      */
     @Test
-    public void testMakeUser(){
+    public void testMakeUser() {
         UserController userController = new UserController(null);
         userController.clearAllUsers();
-        userController.makeUser("Franz",2,3);
+        userController.makeUser("Franz", 2, 3);
         User franz = userController.findUser(2);
 
         assertTrue(userController.getAllUser().contains(franz));
 
-        }
+    }
 
     /**
      * Test remove user.
      */
     @Test
-    public void testRemoveUser(){
-            UserController userController = new UserController(null);
-            userController.clearAllUsers();
-            userController.makeUser("Franz",3,3);
-            User franz = new MyUser("Franz",3,3);
-            userController.removeUser(franz);
-            assertTrue(!userController.getAllUser().contains(franz));
-        }
+    public void testRemoveUser() {
+        UserController userController = new UserController(null);
+        userController.clearAllUsers();
+        userController.makeUser("Franz", 3, 3);
+        User franz = new MyUser("Franz", 3, 3);
+        userController.removeUser(franz);
+        assertTrue(!userController.getAllUser().contains(franz));
+    }
 
     /**
      * Tests first if clearAllUsers really clears all and then if getAllUsers returns the newly added user(s)
      */
     @Test
-    public void testClearAllUsersAndGetAll(){
+    public void testClearAllUsersAndGetAll() {
         UserController userController = new UserController(null);
         userController.clearAllUsers();
         assertTrue(userController.getAllUser().isEmpty());
         List<User> list = userController.getAllUser();
-        userController.makeUser("Franz",3,3);
+        userController.makeUser("Franz", 3, 3);
         list.add(userController.findUser(3));
         list.forEach(user -> assertTrue(userController.getAllUser().contains(user)));
 
-        }
     }
+}

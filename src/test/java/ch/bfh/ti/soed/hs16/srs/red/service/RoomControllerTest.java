@@ -39,7 +39,6 @@ public class RoomControllerTest {
         roomOverviewTest = roomController.getAllRooms();
 
 
-
         Room r6 = roomController.findRoom(6);
         roomController.removeRoom(r6);
 
@@ -110,7 +109,7 @@ public class RoomControllerTest {
      */
 //    @Test
 //    public void testAddRoomWithSameName() {
-//
+//TODO or delete
 //        RoomController roomController = new RoomController();
 //        roomController.clearAllRooms();
 //        //Creates 10 rooms and add it to DataBase

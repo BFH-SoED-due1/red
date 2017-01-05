@@ -24,8 +24,6 @@ import static org.junit.Assert.*;
 
 /**
  * The My user test.
- *
- *
  */
 public class MyUserTest {
 
@@ -33,7 +31,7 @@ public class MyUserTest {
      * Test make reservations adds reservation to DB.
      */
     @Test
-    public void testMakeReservationsAddsReservationToReservations(){
+    public void testMakeReservationsAddsReservationToReservations() {
         UserController userController = new UserController(null);
         ReservationController reservationController = new ReservationController();
         RoomController roomController = new RoomController();
@@ -106,11 +104,11 @@ public class MyUserTest {
      */
 
     @Test
-    public void testCreateUser(){
+    public void testCreateUser() {
         UserController userController = new UserController(null);
-        userController.makeUser("john",2);
+        userController.makeUser("john", 2);
         assertFalse(userController.getAllUser().isEmpty());
-        userController.makeUser("jane",2,1);
+        userController.makeUser("jane", 2, 1);
         User user = userController.findUser(2);
         assertTrue(userController.getAllUser().contains(user));
     }
@@ -120,12 +118,12 @@ public class MyUserTest {
      */
 
     @Test
-    public void testSetters(){
-        MyUser user = new MyUser("Cat",4);
+    public void testSetters() {
+        MyUser user = new MyUser("Cat", 4);
         user.setName("doe");
         user.setRole(2);
-        assertEquals(2,user.getRole());
-        assertEquals("doe",user.getName());
+        assertEquals(2, user.getRole());
+        assertEquals("doe", user.getName());
     }
 
 }

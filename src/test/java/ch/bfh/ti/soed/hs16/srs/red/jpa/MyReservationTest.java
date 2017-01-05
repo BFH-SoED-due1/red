@@ -24,8 +24,6 @@ import static org.junit.Assert.*;
 
 /**
  * MyReservation test.
- *
- *
  */
 public class MyReservationTest {
 
@@ -45,10 +43,10 @@ public class MyReservationTest {
         User user = userController.findUser(1);
         roomController.addRoom(new MyRoom(1, "room", "building", 12));
         Room room = roomController.findRoom(1);
-        reservationController.createReservation(new TimeSlot(new Date(1000*1000*60), new Date(2000*1000*60)), room, user);
+        reservationController.createReservation(new TimeSlot(new Date(1000 * 1000 * 60), new Date(2000 * 1000 * 60)), room, user);
         assertFalse(reservationController.getAllReservations().isEmpty());
         reservationController.clearAllReservations();
-        reservationController.createReservation(1,new TimeSlot(new Date(1000*1000*60), new Date(2000*1000*60)), room, user);
+        reservationController.createReservation(1, new TimeSlot(new Date(1000 * 1000 * 60), new Date(2000 * 1000 * 60)), room, user);
         assertFalse(reservationController.getAllReservations().isEmpty());
     }
 
@@ -64,11 +62,11 @@ public class MyReservationTest {
         User user = userController.findUser(7);
         roomController.addRoom(new MyRoom(11, "room", "building", 12));
         Room room = roomController.findRoom(11);
-        reservationController.createReservation(8, new TimeSlot(new Date(1000*1000*6), new Date(2000*1000*20)), room, user);
+        reservationController.createReservation(8, new TimeSlot(new Date(1000 * 1000 * 6), new Date(2000 * 1000 * 20)), room, user);
         Reservation res = reservationController.findReservation(8);
         reservationController.cancelReservation(res);
         assertTrue(!reservationController.getAllReservations().contains(res));
-        assertTrue(reservationController.findReservation(res.getId())==null);
+        assertTrue(reservationController.findReservation(res.getId()) == null);
     }
 
     /**
@@ -86,7 +84,7 @@ public class MyReservationTest {
         User user = userController.findUser(1);
         roomController.addRoom(new MyRoom(1, "room", "building", 12));
         Room room = roomController.findRoom(1);
-        reservationController.createReservation(1, new TimeSlot(new Date(1000*1000*60), new Date(2000*1000*60)), room, user);
+        reservationController.createReservation(1, new TimeSlot(new Date(1000 * 1000 * 60), new Date(2000 * 1000 * 60)), room, user);
         Reservation res = reservationController.findReservation(1);
         assertEquals(res.getOwner(), user);
         userController.makeUser("john", 2, 1);
@@ -113,9 +111,9 @@ public class MyReservationTest {
         User user = userController.findUser(1);
         roomController.addRoom(new MyRoom(1, "room", "building", 12));
         Room room = roomController.findRoom(1);
-        reservationController.createReservation(1, new TimeSlot(new Date(1000*60*60*24*10), new Date(1000*60*60*24*15)), room, user);
+        reservationController.createReservation(1, new TimeSlot(new Date(1000 * 60 * 60 * 24 * 10), new Date(1000 * 60 * 60 * 24 * 15)), room, user);
         Reservation reservation1 = reservationController.findReservation(1);
-        reservationController.createReservation(2, new TimeSlot(new Date(1000*60*60*24*12), new Date(1000*60*60*24*18)), room, user);
+        reservationController.createReservation(2, new TimeSlot(new Date(1000 * 60 * 60 * 24 * 12), new Date(1000 * 60 * 60 * 24 * 18)), room, user);
         Reservation reservation2 = reservationController.findReservation(2);
         assertNull(reservation2);
     }
@@ -143,21 +141,21 @@ public class MyReservationTest {
         roomList.add(room1);
         roomList.add(room2);
         roomList.add(room3);
-        reservationController.createReservation(1, new TimeSlot(new Date(1000*60*60*24), new Date(1000*60*60*24*3)), room1, user);
+        reservationController.createReservation(1, new TimeSlot(new Date(1000 * 60 * 60 * 24), new Date(1000 * 60 * 60 * 24 * 3)), room1, user);
         Reservation reservation1 = reservationController.findReservation(1);
-        reservationController.createReservation(2, new TimeSlot(new Date(1000*60*60*24), new Date(1000*60*60*24*3)), room2, user);
+        reservationController.createReservation(2, new TimeSlot(new Date(1000 * 60 * 60 * 24), new Date(1000 * 60 * 60 * 24 * 3)), room2, user);
         Reservation reservation2 = reservationController.findReservation(2);
-        reservationController.createReservation(3, new TimeSlot(new Date(1000*60*60*24*3), new Date(1000*60*60*24*5)), room3, user);
+        reservationController.createReservation(3, new TimeSlot(new Date(1000 * 60 * 60 * 24 * 3), new Date(1000 * 60 * 60 * 24 * 5)), room3, user);
         Reservation reservation3 = reservationController.findReservation(3);
-        List<Room> openList = ReservationController.getOpenRooms(new TimeSlot(new Date(1000*60*60*24*2), new Date(1000*60*60*24*3)));
-        assertTrue(openList.size()==1&&openList.contains(room3));
+        List<Room> openList = ReservationController.getOpenRooms(new TimeSlot(new Date(1000 * 60 * 60 * 24 * 2), new Date(1000 * 60 * 60 * 24 * 3)));
+        assertTrue(openList.size() == 1 && openList.contains(room3));
     }
 
     /**
      * test setters
      */
     @Test
-    public void testSetters(){
+    public void testSetters() {
         UserController userController = new UserController(null);
         ReservationController reservationController = new ReservationController();
         RoomController roomController = new RoomController();
@@ -168,15 +166,15 @@ public class MyReservationTest {
         User user = userController.findUser(1);
         roomController.addRoom(new MyRoom(1, "room", "building", 12));
         Room room = roomController.findRoom(1);
-        reservationController.createReservation(1, new TimeSlot(new Date(1000*60*60*24*10), new Date(1000*60*60*24*15)), room, user);
+        reservationController.createReservation(1, new TimeSlot(new Date(1000 * 60 * 60 * 24 * 10), new Date(1000 * 60 * 60 * 24 * 15)), room, user);
         Reservation reservation1 = reservationController.findReservation(1);
         roomController.addRoom(new MyRoom(2, "a12", "maze", 12));
         room = roomController.findRoom(2);
         reservation1.setRoom(room);
-        TimeSlot timeSlot = new TimeSlot(new Date(1000*60*60*24*2), new Date(1000*60*60*24*3));
+        TimeSlot timeSlot = new TimeSlot(new Date(1000 * 60 * 60 * 24 * 2), new Date(1000 * 60 * 60 * 24 * 3));
         reservation1.setTimeSlot(timeSlot);
-        assertEquals(reservation1.getRoom(),room);
-        assertEquals(reservation1.getTimeSlot(),timeSlot);
+        assertEquals(reservation1.getRoom(), room);
+        assertEquals(reservation1.getTimeSlot(), timeSlot);
     }
 
 }

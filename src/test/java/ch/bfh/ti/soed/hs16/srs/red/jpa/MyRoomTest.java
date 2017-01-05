@@ -24,39 +24,39 @@ public class MyRoomTest {
         MyRoom room = new MyRoom("room", "building", 12);
         assertEquals(room.getName(), "room");
         room.setName("a12");
-        assertEquals(room.getName(),"a12");
+        assertEquals(room.getName(), "a12");
     }
 
     /**
      * Test get and set building.
      */
     @Test
-    public void testGetAndSetBuilding(){
+    public void testGetAndSetBuilding() {
         MyRoom room = new MyRoom("room", "building", 12);
         assertEquals(room.getBuilding(), "building");
         room.setBuilding("a12");
-        assertEquals(room.getBuilding(),"a12");
+        assertEquals(room.getBuilding(), "a12");
     }
 
     /**
      * Test get and set size.
      */
     @Test
-    public void testGetAndSetSize(){
+    public void testGetAndSetSize() {
         MyRoom room = new MyRoom("room", "building", 12);
         assertEquals(room.getSize(), 12);
         room.setSize(8);
-        assertEquals(room.getSize(),8);
+        assertEquals(room.getSize(), 8);
     }
 
     /**
      * Test get and set id.
      */
     @Test
-    public void testGetAndSetId(){
-        MyRoom room = new MyRoom(1,"room", "building", 12);
+    public void testGetAndSetId() {
+        MyRoom room = new MyRoom(1, "room", "building", 12);
         assertEquals(room.getId(), 1);
         room.setId(3);
-        assertEquals(room.getId(),3);
+        assertEquals(room.getId(), 3);
     }
 }
