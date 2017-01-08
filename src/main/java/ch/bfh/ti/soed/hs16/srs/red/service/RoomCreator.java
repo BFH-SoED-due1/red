@@ -40,11 +40,10 @@ public class RoomCreator {
                 System.out.println(" " + room.length);
                 rooms.add(createRoom(room[0], room[1], Integer.parseInt(room[2])));
             }
+            br.close();
         } catch (Exception e) {
 
         }
         return rooms;
     }
-
-
 }
