@@ -9,8 +9,14 @@ import ch.bfh.ti.soed.hs16.srs.red.data.Reservation;
 import ch.bfh.ti.soed.hs16.srs.red.data.Room;
 import ch.bfh.ti.soed.hs16.srs.red.data.TimeSlot;
 import ch.bfh.ti.soed.hs16.srs.red.data.User;
-
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 
 /**

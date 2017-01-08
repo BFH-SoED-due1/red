@@ -5,12 +5,15 @@
  */
 package ch.bfh.ti.soed.hs16.srs.red.jpa;
 
-import ch.bfh.ti.soed.hs16.srs.red.data.*;
-
-import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
+import ch.bfh.ti.soed.hs16.srs.red.data.DataAccess;
+import ch.bfh.ti.soed.hs16.srs.red.data.Reservation;
+import ch.bfh.ti.soed.hs16.srs.red.data.Room;
+import ch.bfh.ti.soed.hs16.srs.red.data.TimeSlot;
+import ch.bfh.ti.soed.hs16.srs.red.data.User;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.Persistence; 
+import javax.persistence.Query;
 
 /**
  * Jpa data access, gives acess to the DB

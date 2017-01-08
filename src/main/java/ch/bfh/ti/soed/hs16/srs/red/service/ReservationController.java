@@ -5,8 +5,11 @@
  */
 package ch.bfh.ti.soed.hs16.srs.red.service;
 
-import ch.bfh.ti.soed.hs16.srs.red.data.*;
-
+import ch.bfh.ti.soed.hs16.srs.red.data.DataAccess;
+import ch.bfh.ti.soed.hs16.srs.red.data.Reservation;
+import ch.bfh.ti.soed.hs16.srs.red.data.Room;
+import ch.bfh.ti.soed.hs16.srs.red.data.TimeSlot;
+import ch.bfh.ti.soed.hs16.srs.red.data.User;
 import java.util.ArrayList;
 import java.util.List;
 
