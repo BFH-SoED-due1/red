@@ -30,6 +30,7 @@ public class MyUser implements User {
 
     private String name;
     private int role;
+    private String passHash;
 
     @OneToMany(mappedBy="owner",cascade = CascadeType.ALL)
     private List<MyReservation> reservations;
@@ -40,11 +41,13 @@ public class MyUser implements User {
      * @param name the name of user
      * @param id   the id of user
      * @param role the role of user, eg admin etc
+     * @param passwordHash the combined salt and hashed password
      */
-    public MyUser(String name, int id, int role) {
+    public MyUser(String name, int id, int role, String passwordHash) {
         this.name = name;
         this.id = id;
         this.role = role;
+        this.passHash = passwordHash;
     }
 
     /**
@@ -65,6 +68,7 @@ public class MyUser implements User {
 
     }
 
+    @Override
     public String getName() {
         return name;
     }
@@ -91,4 +95,10 @@ public class MyUser implements User {
     public void setRole(int role) {
         this.role = role;
     }
+
+    @Override
+    public String getPassHash(){
+        return this.passHash;
+    }
+
 }

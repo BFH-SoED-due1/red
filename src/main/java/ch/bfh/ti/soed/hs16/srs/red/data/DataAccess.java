@@ -47,11 +47,13 @@ public abstract class DataAccess { // acts as a singleton
      * @param name the name
      * @param id   the id
      * @param role the role
+     * @param password the un-hashed password
      * @return the user
+     * @throws java.lang.Exception
      */
 // Methods for persons
     //////////////////////
-    public abstract User makeUser(String name, int id, int role);
+    public abstract User makeUser(String name, int id, int role, String password) throws Exception;
 
     /**
      * Make user.

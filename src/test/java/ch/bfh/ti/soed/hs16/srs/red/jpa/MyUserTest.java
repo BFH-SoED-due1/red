@@ -13,14 +13,14 @@ import ch.bfh.ti.soed.hs16.srs.red.data.User;
 import ch.bfh.ti.soed.hs16.srs.red.service.ReservationController;
 import ch.bfh.ti.soed.hs16.srs.red.service.RoomController;
 import ch.bfh.ti.soed.hs16.srs.red.service.UserController;
-import org.junit.Test;
-
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import org.junit.Test;
 
 /**
  * The My user test.
@@ -31,14 +31,14 @@ public class MyUserTest {
      * Test make reservations adds reservation to DB.
      */
     @Test
-    public void testMakeReservationsAddsReservationToReservations() {
-        UserController userController = new UserController(null);
+    public void testMakeReservationsAddsReservationToReservations()throws Exception {
+        UserController userController = new UserController();
         ReservationController reservationController = new ReservationController();
         RoomController roomController = new RoomController();
         reservationController.clearAllReservations();
         userController.clearAllUsers();
         roomController.clearAllRooms();
-        userController.makeUser("Ralph", 1, 1);
+        userController.makeUser("Ralph", 1, 1, "pw");
         User user = userController.findUser(1);
         roomController.addRoom(new MyRoom(1, "406", "HG", 30));
         Room room = roomController.findRoom(1);
@@ -51,14 +51,14 @@ public class MyUserTest {
      * Test get reservations gets reservations.
      */
     @Test
-    public void testGetReservationsGetsReservations() {
-        UserController userController = new UserController(null);
+    public void testGetReservationsGetsReservations() throws Exception {
+        UserController userController = new UserController();
         ReservationController reservationController = new ReservationController();
         RoomController roomController = new RoomController();
         reservationController.clearAllReservations();
         userController.clearAllUsers();
         roomController.clearAllRooms();
-        userController.makeUser("Ralph", 1, 1);
+        userController.makeUser("Ralph", 1, 1,"pw");
         User user = userController.findUser(1);
         roomController.addRoom(new MyRoom(1, "406", "HG", 30));
         Room room = roomController.findRoom(1);
@@ -79,14 +79,14 @@ public class MyUserTest {
      * Test if canceled reservations vanish.
      */
     @Test
-    public void testCanceledReservationsVanish() {
-        UserController userController = new UserController(null);
+    public void testCanceledReservationsVanish() throws Exception {
+        UserController userController = new UserController();
         ReservationController reservationController = new ReservationController();
         RoomController roomController = new RoomController();
         reservationController.clearAllReservations();
         userController.clearAllUsers();
         roomController.clearAllRooms();
-        userController.makeUser("Ralph", 1, 1);
+        userController.makeUser("Ralph", 1, 1,"pw");
         User user = userController.findUser(1);
         roomController.addRoom(new MyRoom(1, "406", "HG", 30));
         Room room = roomController.findRoom(1);
@@ -104,11 +104,11 @@ public class MyUserTest {
      */
 
     @Test
-    public void testCreateUser() {
-        UserController userController = new UserController(null);
+    public void testCreateUser() throws Exception {
+        UserController userController = new UserController();
         userController.makeUser("john", 2);
         assertFalse(userController.getAllUser().isEmpty());
-        userController.makeUser("jane", 2, 1);
+        userController.makeUser("jane", 2, 1,"pw");
         User user = userController.findUser(2);
         assertTrue(userController.getAllUser().contains(user));
     }
@@ -125,5 +125,6 @@ public class MyUserTest {
         assertEquals(2, user.getRole());
         assertEquals("doe", user.getName());
     }
+
 
 }

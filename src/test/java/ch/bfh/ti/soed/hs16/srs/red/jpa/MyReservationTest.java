@@ -13,13 +13,14 @@ import ch.bfh.ti.soed.hs16.srs.red.data.User;
 import ch.bfh.ti.soed.hs16.srs.red.service.ReservationController;
 import ch.bfh.ti.soed.hs16.srs.red.service.RoomController;
 import ch.bfh.ti.soed.hs16.srs.red.service.UserController;
-import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import org.junit.Test;
 
 
 /**
@@ -32,14 +33,14 @@ public class MyReservationTest {
      * Test of makeReservation
      */
     @Test
-    public void testMakeReservation() {
-        UserController userController = new UserController(null);
+    public void testMakeReservation() throws Exception {
+        UserController userController = new UserController();
         ReservationController reservationController = new ReservationController();
         RoomController roomController = new RoomController();
         reservationController.clearAllReservations();
         userController.clearAllUsers();
         roomController.clearAllRooms();
-        userController.makeUser("user", 1, 1);
+        userController.makeUser("user", 1, 1, "pw");
         User user = userController.findUser(1);
         roomController.addRoom(new MyRoom(1, "room", "building", 12));
         Room room = roomController.findRoom(1);
@@ -54,11 +55,11 @@ public class MyReservationTest {
      * Test cancel reservation.
      */
     @Test
-    public void testCancelReservation() {
-        UserController userController = new UserController(null);
+    public void testCancelReservation() throws Exception {
+        UserController userController = new UserController();
         ReservationController reservationController = new ReservationController();
         RoomController roomController = new RoomController();
-        userController.makeUser("user", 7, 1);
+        userController.makeUser("user", 7, 1,"pw");
         User user = userController.findUser(7);
         roomController.addRoom(new MyRoom(11, "room", "building", 12));
         Room room = roomController.findRoom(11);
@@ -73,21 +74,21 @@ public class MyReservationTest {
      * Test if reservation knows owner, and notices if changed through set.
      */
     @Test
-    public void testReservationKnowsOwner() {
-        UserController userController = new UserController(null);
+    public void testReservationKnowsOwner() throws Exception {
+        UserController userController = new UserController();
         ReservationController reservationController = new ReservationController();
         RoomController roomController = new RoomController();
         reservationController.clearAllReservations();
         userController.clearAllUsers();
         roomController.clearAllRooms();
-        userController.makeUser("user", 1, 1);
+        userController.makeUser("user", 1, 1, "pw");
         User user = userController.findUser(1);
         roomController.addRoom(new MyRoom(1, "room", "building", 12));
         Room room = roomController.findRoom(1);
         reservationController.createReservation(1, new TimeSlot(new Date(1000 * 1000 * 60), new Date(2000 * 1000 * 60)), room, user);
         Reservation res = reservationController.findReservation(1);
         assertEquals(res.getOwner(), user);
-        userController.makeUser("john", 2, 1);
+        userController.makeUser("john", 2, 1, "pw");
         User john = userController.findUser(2);
         reservationController.findReservation(1).setOwner(john);
         res = reservationController.findReservation(1);
@@ -100,14 +101,14 @@ public class MyReservationTest {
      * Test conflicting reservations
      */
     @Test
-    public void testReservationConflict() {
-        UserController userController = new UserController(null);
+    public void testReservationConflict() throws Exception {
+        UserController userController = new UserController();
         ReservationController reservationController = new ReservationController();
         RoomController roomController = new RoomController();
         reservationController.clearAllReservations();
         userController.clearAllUsers();
         roomController.clearAllRooms();
-        userController.makeUser("user", 1, 1);
+        userController.makeUser("user", 1, 1, "pw");
         User user = userController.findUser(1);
         roomController.addRoom(new MyRoom(1, "room", "building", 12));
         Room room = roomController.findRoom(1);
@@ -122,14 +123,14 @@ public class MyReservationTest {
      * Test adding multiple rooms that are equal
      */
     @Test
-    public void testReservationRoomList() {
-        UserController userController = new UserController(null);
+    public void testReservationRoomList() throws Exception {
+        UserController userController = new UserController();
         ReservationController reservationController = new ReservationController();
         RoomController roomController = new RoomController();
         reservationController.clearAllReservations();
         userController.clearAllUsers();
         roomController.clearAllRooms();
-        userController.makeUser("user", 1, 1);
+        userController.makeUser("user", 1, 1, "pw");
         User user = userController.findUser(1);
         roomController.addRoom(new MyRoom(1, "room1", "building", 12));
         Room room1 = roomController.findRoom(1);
@@ -155,14 +156,14 @@ public class MyReservationTest {
      * test setters
      */
     @Test
-    public void testSetters() {
-        UserController userController = new UserController(null);
+    public void testSetters() throws Exception {
+        UserController userController = new UserController();
         ReservationController reservationController = new ReservationController();
         RoomController roomController = new RoomController();
         reservationController.clearAllReservations();
         userController.clearAllUsers();
         roomController.clearAllRooms();
-        userController.makeUser("user", 1, 1);
+        userController.makeUser("user", 1, 1, "pw");
         User user = userController.findUser(1);
         roomController.addRoom(new MyRoom(1, "room", "building", 12));
         Room room = roomController.findRoom(1);

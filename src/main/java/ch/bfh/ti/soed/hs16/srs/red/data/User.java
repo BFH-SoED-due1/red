@@ -47,4 +47,12 @@ public interface User {
      */
     void setRole(int role);
 
+
+    /**
+     * Gets passHash.
+     *
+     * @return the passHash
+     */
+
+    String getPassHash();
 }

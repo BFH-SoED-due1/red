@@ -6,25 +6,23 @@
 package ch.bfh.ti.soed.hs16.srs.red.service;
 
 import ch.bfh.ti.soed.hs16.srs.red.data.DataAccess;
+import ch.bfh.ti.soed.hs16.srs.red.data.Password;
 import ch.bfh.ti.soed.hs16.srs.red.data.User;
-
 import java.util.List;
-import java.util.Map;
 
 
 /**
  * The User controller.
  */
 public class UserController {
-    private Map<String, String> pws;//ToDO sould be in DB before Deploy
+
 
     /**
      * Instantiates a new User controller.
      *
-     * @param pws the pws
      */
-    public UserController(Map<String, String> pws) {
-        this.pws = pws;
+    public UserController() {
+
     }
 
     /**
@@ -35,15 +33,19 @@ public class UserController {
      * @return the user
      * @throws Exception the exception
      */
-    public User logIn(String name, String passWord) throws Exception {  // Receives the entered Username and a has of the password from the UI, checks if user is valid and creates user object.
+    public User logIn(String name, String passWord) throws Exception {  // Receives the entered Username and a hash of the password from the UI, checks if user is valid and creates user object.
         //MyUser u;
         DataAccess dataAccess = DataAccess.getInstance();
+        Password pw = Password.getInstance();
         List<User> user = dataAccess.findAllUsers();
         for (User u : user) {
-            if (u.getName().equals(name) && pws.get(name).equals(passWord)) {
-                return u;
+            if(u.getName().equals(name)){
+                if(pw.check(passWord, u.getPassHash())){
+                    return u;
+                }
             }
         }
+
         Exception e = new Exception("no such username or password");
         throw e;
 
@@ -81,11 +83,13 @@ public class UserController {
      * @param name name
      * @param id   unique id
      * @param role admin, user or poweruser
+     * @param password unhashed password
+     * @throws java.lang.Exception
      */
-    public void makeUser(String name, int id, int role) {
+    public void makeUser(String name, int id, int role, String password) throws Exception {
         DataAccess dataAccess = DataAccess.getInstance();
 
-        dataAccess.makeUser(name, id, role);
+        dataAccess.makeUser(name, id, role, password);
 
     }
     /**

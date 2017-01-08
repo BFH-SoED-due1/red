@@ -12,11 +12,11 @@ import ch.bfh.ti.soed.hs16.srs.red.data.TimeSlot;
 import ch.bfh.ti.soed.hs16.srs.red.data.User;
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.Persistence; 
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 /**
- * Jpa data access, gives acess to the DB
+ * Jpa data access, gives access to the DB
  */
 public class JPADataAccess extends DataAccess {
 
@@ -31,9 +31,12 @@ public class JPADataAccess extends DataAccess {
     }
 
     @Override
-    public User makeUser(String name, int id, int role) {
+    public User makeUser(String name, int id, int role, String password) throws Exception {
+        String passwordHash = new String();
+
+        passwordHash = new MyPassword().getSaltedHash(password);
         this.entityManager.getTransaction().begin();
-        MyUser user = new MyUser(name, id, role);
+        MyUser user = new MyUser(name, id, role, passwordHash);
         this.entityManager.persist(user);
         this.entityManager.getTransaction().commit();
         return user;
