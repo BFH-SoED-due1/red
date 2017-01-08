@@ -6,12 +6,17 @@
 package ch.bfh.ti.soed.hs16.srs.red.ui.views;
 
 //TODO clean imports
+import ch.bfh.ti.soed.hs16.srs.red.data.Password;
+import ch.bfh.ti.soed.hs16.srs.red.data.User;
+import ch.bfh.ti.soed.hs16.srs.red.development.DevDemo;
+import ch.bfh.ti.soed.hs16.srs.red.service.UserController;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
@@ -32,6 +37,14 @@ public class LoginView extends CustomComponent implements View, Button.ClickList
 
     public LoginView(Navigator nav) {
 
+        try {
+            //@TODO remove before release
+            DevDemo devdemo = new DevDemo();
+        } catch (Exception ex) {
+             Notification.show("Demo Entries failed to initialize.",
+                  ex.getMessage(),
+                  Notification.Type.ERROR_MESSAGE);
+        }
         /*---------------------------------
         initalize Objects
         ---------------------------------*/
@@ -68,17 +81,35 @@ public class LoginView extends CustomComponent implements View, Button.ClickList
     public void buttonClick(Button.ClickEvent clickEvent) {
 
         // Store the current user in the service session
-        getSession().setAttribute("username", loginName.getValue());
+        Password pw = Password.getInstance();
+        UserController uc = new UserController();
+        try {
+            User u =uc.logIn(loginName.getValue(), passwordField.getValue());
+            getSession().setAttribute("username", u.getName());
+            getSession().setAttribute("id", u.getID());
+            getSession().setAttribute("role", u.getRole());
         // navigate to my reservation view
         nav.navigateTo("my Reservation");
-    }
+        } catch (Exception ex) {
+            Notification.show("Wrong Password or Username.",
+                  "Try again.",
+                  Notification.Type.WARNING_MESSAGE);
+        }
 
 
 
+        }
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) {
 
     }
 
 
-}
+    }
+
+
+
+
+
+
+

@@ -5,7 +5,6 @@
  */
 package ch.bfh.ti.soed.hs16.srs.red.ui;
 
-import ch.bfh.ti.soed.hs16.srs.red.development.DevDemo;
 import ch.bfh.ti.soed.hs16.srs.red.ui.views.LoginView;
 import ch.bfh.ti.soed.hs16.srs.red.ui.views.MyReservationView;
 import ch.bfh.ti.soed.hs16.srs.red.ui.views.RoomsView;
@@ -15,8 +14,6 @@ import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.UI;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.annotation.WebServlet;
 
 /**
@@ -36,13 +33,7 @@ public class MyUI extends UI {
     @Override
     protected void init(VaadinRequest vaadinRequest) {
 
-        try {
-            //@TODO remove before release
-            DevDemo devdemo = new DevDemo();
-        } catch (Exception ex) {
-            Logger.getLogger(MyUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+        
         this.navigator = new Navigator(this, this);
 
         navigator.addView("", new LoginView(navigator));
