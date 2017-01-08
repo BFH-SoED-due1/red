@@ -15,7 +15,6 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.CustomComponent;
-import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
@@ -31,7 +30,6 @@ public class LoginView extends CustomComponent implements View, Button.ClickList
     private TextField loginName;
     private PasswordField passwordField;
     private Button loginButton;
-    private Label error;
 
     private Navigator nav;
 
@@ -54,26 +52,18 @@ public class LoginView extends CustomComponent implements View, Button.ClickList
         this.passwordField = new PasswordField("password");
         this.loginButton = new Button("Login", this);
 
-        //this.userController = new UserController();
-        //TODO: handle with user controller
-        this.error = new Label();
-
         /*-------------------------------
         add to css
         -------------------------------*/
         vertical.setPrimaryStyleName("rootLogin");
         loginButton.setStyleName("buttonLogin");
-        error.setPrimaryStyleName("labelLogin");
 
 
         /*-------------------------------
         add Components to Layout
         --------------------------------*/
-        vertical.addComponents(loginName, passwordField, loginButton, error);
+        vertical.addComponents(loginName, passwordField, loginButton);
         setCompositionRoot(vertical);
-
-
-
     }
 
 
