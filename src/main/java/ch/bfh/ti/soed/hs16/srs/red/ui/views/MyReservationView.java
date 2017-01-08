@@ -5,9 +5,13 @@
  */
 package ch.bfh.ti.soed.hs16.srs.red.ui.views;
 
-//TODO imports
 import ch.bfh.ti.soed.hs16.srs.red.data.Reservation;
+import ch.bfh.ti.soed.hs16.srs.red.data.Room;
+import ch.bfh.ti.soed.hs16.srs.red.data.TimeSlot;
+import ch.bfh.ti.soed.hs16.srs.red.data.User;
 import ch.bfh.ti.soed.hs16.srs.red.service.ReservationController;
+import ch.bfh.ti.soed.hs16.srs.red.service.RoomController;
+import ch.bfh.ti.soed.hs16.srs.red.service.UserController;
 import ch.bfh.ti.soed.hs16.srs.red.ui.helper.Menu;
 import ch.bfh.ti.soed.hs16.srs.red.ui.helper.SubWindowReservation;
 import com.vaadin.navigator.Navigator;
@@ -44,6 +48,7 @@ public class MyReservationView extends CustomComponent implements View {
     //--------- content ------------
     private Menu navigation;
     private Label labelWelcome;
+    private Label error;
     private Calendar calendarWeek;
     private Button buttonAddRes;
 
@@ -54,7 +59,10 @@ public class MyReservationView extends CustomComponent implements View {
 
     //--------- controller ---------
     private ReservationController reservationController;
+    private UserController userController;
+    private RoomController roomController;
 
+    private int id;
 
 
     public MyReservationView(Navigator nav) {
@@ -67,6 +75,7 @@ public class MyReservationView extends CustomComponent implements View {
 
         this.navigation = new Menu(nav);
         this.labelWelcome = new Label();
+        this.error = new Label();
         this.calendarWeek = new Calendar();
         this.buttonAddRes = new Button("add Reservation", this::buttonAddReservation);  //handle event in method addReservation
         this.contentSubWindow = new SubWindowReservation();
@@ -75,6 +84,8 @@ public class MyReservationView extends CustomComponent implements View {
 
 
         this.reservationController = new ReservationController();
+        this.userController = new UserController();
+        this.roomController = new RoomController();
 
         /*---------------------------------
         specialize objects
@@ -82,7 +93,11 @@ public class MyReservationView extends CustomComponent implements View {
         calendarWeek.setFirstDayOfWeek(GregorianCalendar.MONDAY);
         saveButton.addClickListener(this::buttonSave);
         deleteButton.addClickListener(this::buttonDelete);
-        contentSubWindow.getTextFieldId().setEnabled(false);  //nobody can change value
+
+        List<Room> rooms = roomController.getAllRooms();
+        for (int i = 0; i < rooms.size(); i++) {
+            contentSubWindow.getRooms().addItem(rooms.get(i).getId() + " " + rooms.get(i).getName());
+        }
 
         /*---------------------------------
         add style names
@@ -94,7 +109,7 @@ public class MyReservationView extends CustomComponent implements View {
         add components to root
         --------------------------------*/
         Layout layoutMenu = navigation.getMenu();
-        root.addComponents(layoutMenu, labelWelcome, buttonAddRes, calendarWeek);
+        root.addComponents(layoutMenu, labelWelcome, error, buttonAddRes, calendarWeek);
         setCompositionRoot(root);
 
 
@@ -102,58 +117,94 @@ public class MyReservationView extends CustomComponent implements View {
         double click on calendar events
         --------------------------------*/
         calendarWeek.setHandler((CalendarComponentEvents.EventClickHandler) event -> {
-                addSubWindowToRoot(event);
+            addSubWindowToRoot(event);
         });
 
     }
 
     private void buttonDelete(Button.ClickEvent event) {
-        //TODO delete from database and from calendar
-        CalendarEvent e = contentSubWindow.getEvent();
-        calendarWeek.removeEvent(e);
 
-        subWindowReservation.close();
+        String id = contentSubWindow.getTextFieldId().getValue();
+        int idRes = Integer.parseInt(id);
+
+        try {
+
+            Reservation res = reservationController.findReservation(idRes);
+            reservationController.cancelReservation(res);
+
+            CalendarEvent e = contentSubWindow.getEvent();
+            calendarWeek.removeEvent(e);
+
+            subWindowReservation.close();
+
+        } catch (Exception e) {
+            System.out.println("Exception");
+        }
+
+
     }
 
 
     private void buttonSave(Button.ClickEvent event) {
-        //TODO Event to database and to calendar
-        DateField dateStart = contentSubWindow.getDateFieldStart();
-        DateField dateEnd = contentSubWindow.getDateFieldEnd();
 
-        addNewEntryToCalendar(contentSubWindow.getTextFieldId().getValue(), contentSubWindow.getTextFieldName().getValue(),
-                new Date(dateStart.getValue().getTime()), new Date(dateEnd.getValue().getTime()));
+        try {
+            DateField dateStart = contentSubWindow.getDateFieldStart();
+            DateField dateEnd = contentSubWindow.getDateFieldEnd();
+            String roomName = contentSubWindow.getRooms().getValue().toString();
+            String id = contentSubWindow.getTextFieldId().getValue();
+            int idRes = Integer.parseInt(id);
+
+            String[] room = roomName.split(" ");
+            String roomId = room[0];
+            int idR = Integer.parseInt(roomId);
+
+            User u = userController.findUser(this.id);
+            Room r = roomController.findRoom(idR);
+
+            reservationController.createReservation(idRes, new TimeSlot(dateStart.getValue(), dateEnd.getValue()), r, u);
+
+            addNewEntryToCalendar(contentSubWindow.getTextFieldId().getValue(), contentSubWindow.getTextFieldName().getValue(),
+                   r, new Date(dateStart.getValue().getTime()), new Date(dateEnd.getValue().getTime()));
+
+
+        } catch (Exception e) {
+            error.setValue("Sorry this room ins't available or you haven't filled all fields");
+        }
+
 
         subWindowReservation.close();
+
+
     }
 
     //click button in root layout to add new reservation
     private void buttonAddReservation(Button.ClickEvent event) {
+        error.setValue("");
         addSubWindowToRoot(event);
     }
 
     //happens when enter the page
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) {
-
-        updateEvents();
-
         //get username from session
         String username = String.valueOf(getSession().getAttribute("username"));
+        this.id = (int) getSession().getAttribute("id");
         labelWelcome.setValue("Your Reservations " + username + ":");
+
+        updateEvents();
     }
 
     //add new entry to calendar view
-    public void addNewEntryToCalendar(String id, String name, Date start, Date end) {
-        updateEvents();
+    public void addNewEntryToCalendar(String id, String name, Room r, Date start, Date end) {
         BasicEvent e = new BasicEvent(id, name, start, end);
+        contentSubWindow.getRooms().setValue(r.getId() + " " + r.getName());
         calendarWeek.addEvent(e);
     }
 
 
     public void addSubWindowToRoot(Event event) {
 
-        if(event.getComponent().getClass().equals(Calendar.class)) {
+        if (event.getComponent().getClass().equals(Calendar.class)) {
             //Calendar event click
             CalendarComponentEvents.EventClick e = (CalendarComponentEvents.EventClick) event;
             contentSubWindow.setEvent(e.getCalendarEvent());
@@ -164,7 +215,7 @@ public class MyReservationView extends CustomComponent implements View {
             contentSubWindow.getDateFieldEnd().setValue(e.getCalendarEvent().getEnd());
         }
 
-        if(event.getComponent().getClass().equals(Button.class)) {
+        if (event.getComponent().getClass().equals(Button.class)) {
             //Button click
             contentSubWindow.getTextFieldId().setValue("");
             contentSubWindow.getTextFieldName().setValue("");
@@ -183,12 +234,15 @@ public class MyReservationView extends CustomComponent implements View {
     public void updateEvents() {
 
         List<CalendarEvent> event = calendarWeek.getEvents(calendarWeek.getStartDate(), calendarWeek.getEndDate());
-        for(CalendarEvent cal : event) {
+        for (CalendarEvent cal : event) {
             calendarWeek.removeEvent(cal);
         }
 
         List<BasicEvent> e = getEvents();
-        for(BasicEvent ev : e) {
+        for (BasicEvent ev : e) {
+            int id = Integer.parseInt(ev.getCaption());
+            Reservation r = reservationController.findReservation(id);
+            contentSubWindow.getRooms().setValue(r.getRoom().getId() + " " + r.getRoom().getName());
             calendarWeek.addEvent(ev);
         }
 
@@ -197,11 +251,13 @@ public class MyReservationView extends CustomComponent implements View {
 
     public List<BasicEvent> getEvents() {
         List<BasicEvent> e = new ArrayList<>();
-        List<Reservation> res = reservationController.getAllReservations();
-        for(Reservation r : res) {
-           e.add(new BasicEvent(r.getOwner().getName(), r.getOwner().getID() + "", r.getTimeSlot().getStart(), r.getTimeSlot().getEnd()));
+        User user = userController.findUser(this.id);
+        List<Reservation> res = reservationController.findReservationsOfUser(user);
+        for (Reservation r : res) {
+            e.add(new BasicEvent(r.getId()+"", r.getOwner().getName(), r.getTimeSlot().getStart(), r.getTimeSlot().getEnd()));
         }
         return e;
     }
+
 
 }
