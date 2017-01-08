@@ -94,6 +94,7 @@ public class LoginView extends CustomComponent implements View, Button.ClickList
             Notification.show("Wrong Password or Username.",
                   "Try again.",
                   Notification.Type.WARNING_MESSAGE);
+            passwordField.clear();
         }
 
 
