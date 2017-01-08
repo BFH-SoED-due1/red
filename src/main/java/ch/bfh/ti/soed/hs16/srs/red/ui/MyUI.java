@@ -33,7 +33,6 @@ public class MyUI extends UI {
     @Override
     protected void init(VaadinRequest vaadinRequest) {
 
-        
         this.navigator = new Navigator(this, this);
 
         navigator.addView("", new LoginView(navigator));
