@@ -21,7 +21,6 @@ public class Menu extends CustomComponent implements View {
 
     private Layout menu;
     private Button myReservationButton;
-    private Button roomsButton;
     private Navigator navigator;
     private String CLASSNAME = "menu";
 
@@ -33,26 +32,22 @@ public class Menu extends CustomComponent implements View {
         this.navigator = nav;
         this.menu = new HorizontalLayout();
         this.myReservationButton = new Button("my reservation");
-        this.roomsButton = new Button("rooms");
 
         /*-------------------------------
         add to css
         -------------------------------*/
         menu.setPrimaryStyleName(CLASSNAME);
         myReservationButton.setPrimaryStyleName(CLASSNAME + "-button");
-        roomsButton.setPrimaryStyleName(CLASSNAME + "-button");
 
         /*-------------------------------
         add Buttons to Layout
         --------------------------------*/
         menu.addComponent(myReservationButton);
-        menu.addComponent(roomsButton);
 
         /*------------------------------
         Event Handling Buttons
         ------------------------------*/
         myReservationButton.addClickListener((Button.ClickListener) event -> navigator.navigateTo("my Reservation"));
-        roomsButton.addClickListener((Button.ClickListener) event -> navigator.navigateTo("rooms"));
 
     }
 
