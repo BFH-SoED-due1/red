@@ -13024,10 +13024,6 @@ div.v-layout.v-horizontal.v-widget {
 	width: 170px;
 }
 
-.mytheme .calendarWeek {
-	margin-right: $marginLayout;
-}
-
 .mytheme .calendarWeek .v-datecellslot {
 	border-top: 1px solid #dfdfdf;
 	border-right: 1px solid #dfdfdf;
